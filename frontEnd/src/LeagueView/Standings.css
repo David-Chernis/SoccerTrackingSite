@@ -1,0 +1,24 @@
+.Logo-Div {
+    float:left;
+    width:20px;
+    height:inherit;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0px 10px 0px 0px;
+}
+
+.Abbr-Cell {
+    display:none
+}
+
+
+@media screen and (max-width:575px) {
+    .Name-Cell {
+        display:none;
+    }
+
+    .Abbr-Cell {
+        display:table-cell
+    }
+}

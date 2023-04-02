@@ -1,0 +1,54 @@
+.League-Header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 52px;           
+    width: 100%;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    padding: 20px 40px 20px 30px;
+    margin-bottom: 20px;
+}
+
+.League-Text, .Country-Text {
+    width: 100%;
+    text-align: left;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    margin:0;
+}
+
+.League-Text {
+    font-size: 3em;
+}
+
+.Country-Text {
+    font-size: 2em;
+    font-style: italic;
+}
+
+.Date-Text {
+    text-align: right;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 2.5em;
+    margin:0;
+}
+
+.Date-Break {
+    display:none;
+}
+
+@media screen and (max-width:876px){
+    .League-Text, .Country-Text {
+        display: none;
+    }
+
+    .League-Header {
+        column-gap: 10px
+    }
+}
+
+@media screen and (max-width:420px){
+    .Date-Break {
+        display:inline
+    }
+}
