@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Arsenal from './images/Arsenal.png'
 import Wenger from './images/Wenger.jpg'
+import MiniGame from './MiniGameView/MiniGameView';
 
 function App() {
   const siteTheme = createTheme({
@@ -60,6 +61,9 @@ function App() {
               }/>
               <Route path='teams' element={
                 <TeamView data={teamData}/>
+              }/>
+              <Route path='miniGame' index element={
+                <MiniGame/>
               }/>
             </Route>
           </Routes>
