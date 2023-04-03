@@ -34,9 +34,13 @@ app.get("/standings", async (req, res) => {
 });
 
 app.get('/miniGame', async (req, res) => {
-    const { homeTeam1, awayTeam1, homeTeam2, awayTeam2 } = req.query;
+    const home1 = req.query.home1;
+    const home2 = req.query.home2;
+    const away1 = req.query.away1;
+    const away2 = req.query.away2;
     try {
-      const teams = await queries.match_games(homeTeam1, awayTeam1, homeTeam2, awayTeam2);
+      const teams = await mainPage.match_games(home1, away1, home2, away2);
+      console.log(teams)
       res.send(teams);
     } catch (error) {
       console.error(error);
@@ -57,6 +61,7 @@ app.get('/miniGame', async (req, res) => {
     }
   });
 
+<<<<<<< HEAD
   app.post('/Player/:id', (req, res) => {
     console.log("in the post");
     const playerId = req.params.id;
@@ -85,6 +90,29 @@ app.get('/miniGame', async (req, res) => {
     res.status(200).send('Player stats updated successfully');
   });
   
+=======
+  app.get('/Team/:id', async (req, res) => {
+    const teamId = req.params.id;
+    try {
+      const team = await teamPage.teamInfo(teamId);
+      res.send(team)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving team with id ${teamId}.`);
+    }
+  })
+
+  app.get('/Team/:id/roster', async (req, res) => {
+    const teamId = req.params.id;
+    try {
+      const players = await teamPage.playersByTeam(teamId);
+      res.send(players)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving players of team with id ${teamId}`);
+    }
+  })
+>>>>>>> bf2bd82e0654eb67b0fe167cde8c59b71623305d
 
 
 const PORT = 8000;

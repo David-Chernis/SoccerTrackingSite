@@ -18,15 +18,11 @@ export default function Navbar(props) {
         }}
       >
         <Toolbar disableGutters>
-          <img
-            src={logo}
-            alt="logo"
-            width="75px"
-            height="75px"
-            style={{
+          <a href={window.location.origin}>
+            <img src={logo} alt="logo" width="75px" height="75px" style={{
               margin: "10px 20px 10px 0px",
-            }}
-          />
+            }}/>
+          </a>
           <SearchBar search={props.search} />
           <Button
             className="Top-Button"
@@ -73,6 +69,9 @@ function SearchBar(props) {
         border: "2px solid primary.main",
       }}
     >
+      <SearchIcon color='primary' fontSize='large' sx={{
+        marginTop: '3px'
+      }}/>
       <Input
         disableUnderline
         color="primary"

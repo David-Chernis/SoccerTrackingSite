@@ -4,12 +4,15 @@ import LeagueView from './LeagueView/LeagueView'
 import TeamView from './TeamView/TeamView'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
+<<<<<<< HEAD
 import { useState } from 'react';
 import PlayerView from './PlayerView/PlayerView';
+=======
+
+>>>>>>> bf2bd82e0654eb67b0fe167cde8c59b71623305d
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Arsenal from './images/Arsenal.png'
-import Wenger from './images/Wenger.jpg'
+import MiniGame from './MiniGameView/MiniGameView';
 
 function App() {
   const siteTheme = createTheme({
@@ -22,19 +25,6 @@ function App() {
       }
     }
   });
-
-  const [teamData, setTeamData] = useState({
-    team_name: 'Arsenal F.C.',
-    team_code: 'AFC',
-    image_path: Arsenal,
-    founded: 1886,
-    coach_name: 'Ars\u00E8ne Wenger',
-    coach_image_path: Wenger,
-    goals_scored_count: 76,
-    goals_scored_avg: 2,
-    goals_conceded_count: 38,
-    goals_condeded_avg: 1 
-  })
 
   function searchQuery(value, setSearchResults) {
     fetch("http://localhost:8000/searchBar?input=" + value, {
@@ -55,6 +45,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/'>
+<<<<<<< HEAD
               <Route index element={
                 <LeagueView/>
               }/>
@@ -64,6 +55,11 @@ function App() {
               <Route path='player/:id' element={
                 <PlayerView />
               } />
+=======
+              <Route index Component={LeagueView}/>
+              <Route path='Team/:id' Component={TeamView}/>
+              <Route path='miniGame' Component={MiniGame}/>
+>>>>>>> bf2bd82e0654eb67b0fe167cde8c59b71623305d
             </Route>
           </Routes>
         </BrowserRouter>
