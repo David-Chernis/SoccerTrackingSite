@@ -18,7 +18,7 @@ export default function Navbar(props) {
         }}
       >
         <Toolbar disableGutters>
-          <a href='./'>
+          <a href={window.location.origin}>
             <img src={logo} alt="logo" width="75px" height="75px" style={{
               margin: "10px 20px 10px 0px",
             }}/>
