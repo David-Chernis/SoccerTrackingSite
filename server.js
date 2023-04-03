@@ -11,8 +11,9 @@ app.use(cors());
 app.get("/searchBar", async (req, res) => {
     const input = req.query.input;
     try {
-        const standings = await queries.get_weekly_results(week);
-        res.json(standings);
+        const player_teams = await mainPage.searchbar_players_teams(input);
+        console.log(player_teams)
+        res.json(player_teams);
     } catch (error) {
       console.error(error);
       res.status(500).send("Error searching for players and teams.");
@@ -40,6 +41,18 @@ app.get('/miniGame', async (req, res) => {
       res.status(500).send("Error searching for matching teams.");
     }
   });
+
+  app.get('/Player/:id', async (req, res) => {
+    const playerId = req.params.id;
+    try {
+      const player = await playerPage.getPlayerStats(playerId);
+      res.send(player);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving player with id ${playerId}.`);
+    }
+  });
+
 
 const PORT = 8000;
 app.listen(PORT, () => {

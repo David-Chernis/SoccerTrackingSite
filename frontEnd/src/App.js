@@ -36,13 +36,15 @@ function App() {
     goals_condeded_avg: 1 
   })
 
-  function searchQuery(value) {
-    fetch("localhost:8000/search?value=" + value, {
+  function searchQuery(value, setSearchResults) {
+    fetch("http://localhost:8000/searchBar?input=" + value, {
         method: 'GET'
     }).then((response) => {
         return response.json();
     }).then((data) => {
-      
+        // Assuming the server returns an array of strings with team and player names
+        console.log(data)
+        setSearchResults(data);
     })
   }
 
