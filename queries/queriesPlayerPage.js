@@ -15,21 +15,17 @@ function getPlayerStats(playerId) {
     port: "3306",
   });
 
-  // Get the player's position name from the Players table
-  const positionQuery = `SELECT position_name FROM Players WHERE player_id = ?`;
+  return new Promise((resolve, reject) => {
+    const positionQuery = `SELECT position_name FROM Players WHERE player_id = ?`;
 
-  connection.query(
-    positionQuery,
-    [playerId],
-    function (error, results, fields) {
+    connection.query(positionQuery, [playerId], function (error, results) {
       if (error) {
         console.error(error);
-        throw error;
+        reject(error);
       }
 
-      const positionName = results[0].position_name;
+      const positionName = results ? results[0].position_name : '';
 
-      // Construct the SQL query with placeholders for player ID and position table name
       const statsQuery = `
         SELECT
             Players.*,
@@ -41,28 +37,22 @@ function getPlayerStats(playerId) {
             Players.player_id = ?
             AND Players.position_name = ?`;
 
-      // Execute the query with player ID and position table name as values for placeholders
-      connection.query(
-        statsQuery,
-        [playerId, positionName],
-        function (error, results, fields) {
-          if (error) {
-            console.error(error);
-            throw error;
-          }
-
-          console.log(
-            `Player with ID ${playerId} and position ${positionName}:`,
-            results[0]
-          );
+      connection.query(statsQuery, [playerId, positionName], function (error, results, fields) {
+        if (error) {
+          console.error(error);
+          reject(error);
         }
-      );
 
-      // Close the database connection
-      connection.end();
-    }
-  );
+        console.log(`Player with ID ${playerId}`);
+
+        connection.end();
+        
+        resolve(results ? results[0] : results);
+      });
+    });
+  });
 }
+
 
 /**
  * Updates the attribute value of a player in the database.
@@ -72,7 +62,7 @@ function getPlayerStats(playerId) {
  * @param {string} attrName - The name of the attribute to be updated.
  * @returns {void}
  */
-function updatePlayer(teamId, playerId, attrVal, attrName) {
+function updatePlayer(teamId, playerId, nationality, display_name, image_path, player_height, player_weight, date_of_birth, yellow_cards, avg_rating, position_name, nationality_image_path) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -85,15 +75,25 @@ function updatePlayer(teamId, playerId, attrVal, attrName) {
         UPDATE 
             Players
         SET 
-            ${attrName} = ?
+          nationality = ?,
+          display_name = ?,
+          image_path = ?,
+          player_height = ?,
+          player_weight = ?,
+          date_of_birth = ?,
+          yellow_cards = ?,
+          avg_rating = ?,
+          position_name = ?,
+          nationality_image_path = ?
         WHERE 
             team_id = ? AND player_id = ?`;
-  const values = [attrVal, teamId, playerId];
+  const values = [nationality, display_name, image_path, player_height, player_weight, date_of_birth, yellow_cards, avg_rating, position_name, nationality_image_path, teamId, playerId];
 
   connection.query(query, values, function (error, results, fields) {
     if (error) throw error;
     console.log("Player rating updated successfully");
     connection.end();
+    return "successful"
   });
 }
 
