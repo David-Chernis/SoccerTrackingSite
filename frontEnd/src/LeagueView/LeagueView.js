@@ -5,27 +5,21 @@ import PremierLeague from '../images/Premier-League-Logo.png'
 
 import { Container } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
-import { useState } from 'react';
-
-import Leicester from '../images/Leicester_City.png'
-import Arsenal from '../images/Arsenal.png'
-import Tottenham from '../images/Tottenham.png'
-
-function createRowLeague(logo, name, abbr, W, D, L, PTS) {
-    return {logo, name, abbr, W, D, L, PTS}
-}
-
-var startingRows = [
-    createRowLeague(Leicester, 'Leicester City', 'LEI', 23, 12, 3, 81),
-    createRowLeague(Arsenal, 'Arsenal', 'AFC', 20, 11, 7, 71),
-    createRowLeague(Tottenham, 'Tottenham Hotspur', 'TOT', 19, 13, 6, 70)
-]
+import { useState, useEffect } from 'react';
 
 export default function LeagueView() {
-    const [rows, setRows] = useState(startingRows)
+    const [rows, setRows] = useState([{
+        image_path: '',
+        team_name: '',
+        team_code: '',
+        total_draws: '',
+        total_losses: '',
+        total_wins: '',
+        total_points: ''
+    }])
 
     function getStandings(week) {
-        fetch("http://8e10-128-189-202-180.ngrok.io/standings?week=" + week, {
+        fetch("http://localhost:8000/standings?week=" + week, {
             method: 'GET',
             headers: {
                'Content-Type': 'application/json'
@@ -36,11 +30,16 @@ export default function LeagueView() {
             }
             return response.json();
         }).then((data) => {
-            console.log(data);
+            console.log(data)
+            setRows(data)
         }).catch((error) => {
             console.error('There has been a problem with your fetch operation:', error);
         });
     }
+
+    useEffect(()=> {
+        getStandings(38);
+    },[]);
 
     return(
         <Container className='LeagueView' maxWidth='false' sx={{

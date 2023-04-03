@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const mainPage = require("./queries/mainPage.js");
-const  playerPage = require("./queries/queriesPlayerPage.js");
+const playerPage = require("./queries/queriesPlayerPage.js");
 const teamPage = require("./queries/queriesTeamPage.js");
 const topPlayersTeams = require("./queries/topPlayersTeams.js");
 
@@ -22,7 +22,7 @@ app.get("/searchBar", async (req, res) => {
 app.get("/standings", async (req, res) => {
   const week = req.query.week;
   try {
-    const standings = await queries.get_weekly_results(week);
+    const standings = await mainPage.get_weekly_results(week);
     res.send(standings);
   } catch (error) {
     console.error(error);
@@ -41,7 +41,7 @@ app.get('/miniGame', async (req, res) => {
     }
   });
 
-const PORT = 3000;
+const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

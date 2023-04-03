@@ -37,21 +37,21 @@ export default function Standings(props) {
                         <TableCell>{index+1}</TableCell>
                         <TableCell className='Name-Cell'>
                             <div className='Logo-Div'>
-                                <img src={row.logo} alt='Logo' height='20px'/>
+                                <img src={row.image_path} alt='Logo' height='20px'/>
                             </div>
-                            {row.name}
+                            {row.team_name}
                         </TableCell>
                         <TableCell className='Abbr-Cell'>
                             <div className='Logo-Div'>
-                                <img src={row.logo} alt='Logo' height='20px'/>
+                                <img src={row.image_path} alt='Logo' height='20px'/>
                             </div>
-                            {row.abbr}
+                            {row.team_code}
                         </TableCell>
-                        <TableCell>{row.W + row.D + row.L}</TableCell>
-                        <TableCell>{row.W}</TableCell>
-                        <TableCell>{row.D}</TableCell>
-                        <TableCell>{row.L}</TableCell>
-                        <TableCell>{row.PTS}</TableCell>
+                        <TableCell>{Number(row.total_wins) + Number(row.total_draws) + Number(row.total_losses)}</TableCell>
+                        <TableCell>{row.total_wins}</TableCell>
+                        <TableCell>{row.total_draws}</TableCell>
+                        <TableCell>{row.total_losses}</TableCell>
+                        <TableCell>{row.total_points}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
