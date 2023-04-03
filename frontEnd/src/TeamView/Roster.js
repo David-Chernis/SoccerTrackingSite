@@ -1,19 +1,37 @@
 import {Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { useState, useEffect } from 'react';
+
 import Cech from '../images/cech.jpg'
 import Ozil from '../images/ozil.jpg'
 import Giroud from '../images/giroud.jpg'
 
-function createRowTeam(pic, name, position, nationality, birthday, height, weight, yellows) {
-    return {pic, name, position, nationality, birthday, height, weight, yellows}
+import France from '../images/France.png'
+import Germany from '../images/Germany.png'
+import Czechia from '../images/Czechia.png'
+
+function createRowTeam(image_path, display_name, position_name, nationality, nationality_image_path, date_of_birth, player_height, player_weight, yellow_cards) {
+    return {image_path, display_name, position_name, nationality, nationality_image_path, date_of_birth, player_height, player_weight, yellow_cards}
 }
 
-const rows = [
-    createRowTeam(Cech, 'Petr Cech', 'GK', 'Czech', ' ', ' ', ' ', ' '),
-    createRowTeam(Ozil, 'Mesut Ozil', 'MF', 'German', ' ', ' ', ' ', ' '),
-    createRowTeam(Giroud, 'Olivier Giroud', 'FW', 'French', ' ', ' ', ' ', ' ')
-]
-
 export default function Roster() {
+    const [rows, setRows] = useState([
+        createRowTeam(Cech, 'Petr Cech', 'GK', 'Czech', Czechia, ' ', ' ', ' ', ' '),
+        createRowTeam(Ozil, 'Mesut Ozil', 'MF', 'German', Germany, ' ', ' ', ' ', ' '),
+        createRowTeam(Giroud, 'Olivier Giroud', 'FW', 'French', France, ' ', ' ', ' ', ' ')
+    ])
+
+    function loadRows() {
+        fetch("http://localhost:8000" + window.location.pathname + '/roster', {
+            method: 'GET'
+        }).then((response) => {
+            return response.json()
+        }).then((data)=>{
+            setRows(data)
+        })
+    }
+
+    useEffect(loadRows,[])
+
     return (
         <Table stickyHeader={true} sx={{
             marginTop:'10px'
@@ -48,17 +66,19 @@ export default function Roster() {
                         }
                     }}>
                         <TableCell>
-                            <img src={row.pic} height='50px' alt={row.name} style={{
+                            <img src={row.image_path} height='50px' alt={row.display_name} style={{
                                 borderRadius: '25px'
                             }}/>
                         </TableCell>
-                        <TableCell>{row.name}</TableCell>
-                        <TableCell>{row.position}</TableCell>
-                        <TableCell>{row.nationality}</TableCell>
-                        <TableCell>{row.birthday}</TableCell>
-                        <TableCell>{row.height}</TableCell>
-                        <TableCell>{row.weight}</TableCell>
-                        <TableCell>{row.yellows}</TableCell>
+                        <TableCell>{row.display_name}</TableCell>
+                        <TableCell>{row.position_name}</TableCell>
+                        <TableCell>
+                            <img src={row.nationality_image_path} height='25px' alt={row.nationality} title={row.nationality}/>
+                        </TableCell>
+                        <TableCell>{row.date_of_birth ? row.date_of_birth.split('T')[0] : ''}</TableCell>
+                        <TableCell>{row.player_height}</TableCell>
+                        <TableCell>{row.player_weight}</TableCell>
+                        <TableCell>{row.yellow_cards}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>

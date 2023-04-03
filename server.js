@@ -53,6 +53,28 @@ app.get('/miniGame', async (req, res) => {
     }
   });
 
+  app.get('/Team/:id', async (req, res) => {
+    const teamId = req.params.id;
+    try {
+      const team = await teamPage.teamInfo(teamId);
+      res.send(team)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving team with id ${teamId}.`);
+    }
+  })
+
+  app.get('/Team/:id/roster', async (req, res) => {
+    const teamId = req.params.id;
+    try {
+      const players = await teamPage.playersByTeam(teamId);
+      res.send(players)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving players of team with id ${teamId}`);
+    }
+  })
+
 
 const PORT = 8000;
 app.listen(PORT, () => {

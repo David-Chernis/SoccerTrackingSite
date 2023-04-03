@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import logo from "./images/logo.png";
 import Input from "@mui/material/Input";
-import SearchIcon from "@mui/icons-material/SearchRounded";
+// import SearchIcon from "@mui/icons-material/SearchRounded";
 import { useState } from "react";
 
 export default function Navbar(props) {
