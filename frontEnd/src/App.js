@@ -1,10 +1,12 @@
 import './App.css';
 import Navbar from './Navbar'
 import LeagueView from './LeagueView/LeagueView'
-// import TeamView from './TeamView/TeamView'
+import TeamView from './TeamView/TeamView'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import { useState } from 'react';
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Arsenal from './images/Arsenal.png'
 import Wenger from './images/Wenger.jpg'
@@ -34,9 +36,6 @@ function App() {
     goals_condeded_avg: 1 
   })
 
-  const [view, setView] = useState(<LeagueView/>)
-  // const [view, setView] = useState(<TeamView data={teamData}/>)
-
   function searchQuery(value) {
     fetch("localhost:8000/search?value=" + value, {
         method: 'GET'
@@ -51,7 +50,18 @@ function App() {
     <ThemeProvider theme={siteTheme}>
       <Container className='App' disableGutters={true}>
         <Navbar search={searchQuery}/>
-        {view}
+        <BrowserRouter>
+          <Routes>
+            <Route path='/'>
+              <Route index element={
+                <LeagueView/>
+              }/>
+              <Route path='teams' element={
+                <TeamView data={teamData}/>
+              }/>
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </Container>
     </ThemeProvider>
   );
