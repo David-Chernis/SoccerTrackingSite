@@ -131,7 +131,8 @@ async function searchbar_players_teams(searchTerm) {
         SELECT
           player_id AS id,
           display_name AS name,
-          'player' AS type
+          image_path AS image,
+          'Player' AS type
         FROM
             Players
         WHERE
@@ -140,7 +141,8 @@ async function searchbar_players_teams(searchTerm) {
         SELECT
             team_id AS id,
             team_name AS name,
-            'team' AS type
+            image_path AS image,
+            'Team' AS type
         FROM
             Teams
         WHERE
