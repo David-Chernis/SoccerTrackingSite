@@ -32,9 +32,13 @@ app.get("/standings", async (req, res) => {
 });
 
 app.get('/miniGame', async (req, res) => {
-    const { homeTeam1, awayTeam1, homeTeam2, awayTeam2 } = req.query;
+    const home1 = req.query.home1;
+    const home2 = req.query.home2;
+    const away1 = req.query.away1;
+    const away2 = req.query.away2;
     try {
-      const teams = await queries.match_games(homeTeam1, awayTeam1, homeTeam2, awayTeam2);
+      const teams = await mainPage.match_games(home1, away1, home2, away2);
+      console.log(teams)
       res.send(teams);
     } catch (error) {
       console.error(error);

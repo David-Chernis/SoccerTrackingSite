@@ -7,6 +7,8 @@ import Container from '@mui/material/Container';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import MiniGame from './MiniGameView/MiniGameView';
+
 function App() {
   const siteTheme = createTheme({
     palette: {
@@ -39,7 +41,8 @@ function App() {
           <Routes>
             <Route path='/'>
               <Route index Component={LeagueView}/>
-              <Route path='Team/:id' Component={TeamView} />
+              <Route path='Team/:id' Component={TeamView}/>
+              <Route path='miniGame' Component={MiniGame}/>
             </Route>
           </Routes>
         </BrowserRouter>
