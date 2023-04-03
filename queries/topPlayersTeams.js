@@ -225,6 +225,13 @@ async function top_teams_average_conceeded() {
   });
 }
 // Usage example:
-top_teams_average_scoring()
-  .then((results) => console.log(results))
-  .catch((error) => console.error(error));
+// top_teams_average_scoring()
+//   .then((results) => console.log(results))
+//   .catch((error) => console.error(error));
+
+module.exports = {
+  top_rated_players,
+  top_rated_teams,
+  top_teams_average_scoring,
+  top_teams_average_conceeded
+}

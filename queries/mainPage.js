@@ -227,7 +227,9 @@ async function match_games(homeTeam1, awayTeam1, homeTeam2, awayTeam2) {
     });
   });
 }
-// Usage example:
-get_weekly_results(3)
-  .then((results) => console.log(results))
-  .catch((error) => console.error(error));
+
+module.exports = {
+  get_weekly_results,
+  searchbar_players_teams,
+  match_games
+};

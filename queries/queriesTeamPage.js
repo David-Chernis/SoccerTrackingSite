@@ -1,24 +1,36 @@
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 
 /**
- * 
- * @param {*} teamId  
- * @param {*} playerId 
- * @param {*} nationality 
- * @param {*} displayName 
- * @param {*} imagePath 
- * @param {*} playerHeight 
- * @param {*} playerWeight 
- * @param {*} dateOfBirth 
- * @param {*} yellowCards 
- * @param {*} avgRating 
- * @param {*} positionName 
- * @param {*} nationalityImagePath 
+ *
+ * @param {*} teamId
+ * @param {*} playerId
+ * @param {*} nationality
+ * @param {*} displayName
+ * @param {*} imagePath
+ * @param {*} playerHeight
+ * @param {*} playerWeight
+ * @param {*} dateOfBirth
+ * @param {*} yellowCards
+ * @param {*} avgRating
+ * @param {*} positionName
+ * @param {*} nationalityImagePath
  */
 
 // function to insert a new player tuple into the Players table
-function insertPlayer(teamId, playerId, nationality, displayName, imagePath, playerHeight, playerWeight, dateOfBirth, yellowCards, avgRating, positionName, nationalityImagePath) {
-
+function insertPlayer(
+  teamId,
+  playerId,
+  nationality,
+  displayName,
+  imagePath,
+  playerHeight,
+  playerWeight,
+  dateOfBirth,
+  yellowCards,
+  avgRating,
+  positionName,
+  nationalityImagePath
+) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -26,7 +38,7 @@ function insertPlayer(teamId, playerId, nationality, displayName, imagePath, pla
     port: "3306",
     database: "cpsc304",
   });
-  
+
   const query = `
   INSERT INTO 
   Players (
@@ -44,11 +56,24 @@ function insertPlayer(teamId, playerId, nationality, displayName, imagePath, pla
     nationality_image_path)
   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  const values = [teamId, playerId, nationality, displayName, imagePath, playerHeight, playerWeight, dateOfBirth, yellowCards, avgRating, positionName, nationalityImagePath];
+  const values = [
+    teamId,
+    playerId,
+    nationality,
+    displayName,
+    imagePath,
+    playerHeight,
+    playerWeight,
+    dateOfBirth,
+    yellowCards,
+    avgRating,
+    positionName,
+    nationalityImagePath,
+  ];
 
   connection.query(query, values, function (error, results, fields) {
     if (error) throw error;
-    console.log('New player inserted successfully');
+    console.log("New player inserted successfully");
   });
   connection.end();
 }
@@ -76,8 +101,6 @@ async function playersByTeam(teamID) {
           SELECT *
           FROM Players
           WHERE team_id = ${teamID}`;
-        ;
-
         connection.query(sql, (error, results) => {
           if (error) {
             reject(error);
@@ -92,13 +115,12 @@ async function playersByTeam(teamID) {
   });
 }
 
-
 /**
  * Fetches information about a team from the database
  * @param {number} teamID - The ID of the team whose information is to be fetched
  * @returns {Promise<Array>} - A promise that resolves to an array of team objects
  */
-async function teamInfo(teamID){
+async function teamInfo(teamID) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -116,8 +138,6 @@ async function teamInfo(teamID){
           SELECT *
           FROM Teams
           WHERE team_id = ${teamID}`;
-        ;
-
         connection.query(sql, (error, results) => {
           if (error) {
             reject(error);
@@ -132,11 +152,11 @@ async function teamInfo(teamID){
   });
 }
 
-  /**
-   * Fetches all the matches played by a team from the database
-   * @param {number} teamID - The ID of the team whose matches are to be fetched
-   * @returns {Promise<Array>} - A promise that resolves to an array of match objects
-   */
+/**
+ * Fetches all the matches played by a team from the database
+ * @param {number} teamID - The ID of the team whose matches are to be fetched
+ * @returns {Promise<Array>} - A promise that resolves to an array of match objects
+ */
 async function matchesByTeam(teamID) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
@@ -167,7 +187,7 @@ async function matchesByTeam(teamID) {
             OR away_team_id = ${teamID}
         ORDER BY
             match_week ASC`;
-            
+
         connection.query(sql, (error, results) => {
           if (error) {
             reject(error);
@@ -197,7 +217,7 @@ function deletePlayer(playerId, teamId) {
     database: "cpsc304",
   });
 
-  const query = 'DELETE FROM Players WHERE player_id = ? AND team_id = ?';
+  const query = "DELETE FROM Players WHERE player_id = ? AND team_id = ?";
 
   const values = [playerId, teamId];
 
@@ -208,7 +228,6 @@ function deletePlayer(playerId, teamId) {
   connection.end();
 }
 
-
 // example usage
 // insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
 // deletePlayer(1001, 1);
@@ -216,3 +235,11 @@ function deletePlayer(playerId, teamId) {
 // matchesByTeam(13).then((results) => console.log(results));
 // playersByTeam(13).then((results) => console.log(results));
 // close the connection to the database
+
+module.exports = {
+  insertPlayer,
+  playersByTeam,
+  teamInfo,
+  matchesByTeam,
+  deletePlayer,
+};
