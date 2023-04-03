@@ -1,39 +1,55 @@
 import './TeamView.css'
 import Roster from './Roster'
-import Arsenal from '../images/Arsenal.png'
 
 import { Container } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
 
-export default function TeamView() {
+export default function TeamView(props) {
     return (
-        <Container maxWidth='false' sx={{
+        <Container className='TeamView' maxWidth='false' sx={{
             maxWidth:'1500px',
             paddingTop:'50px'
         }}>
-            <TeamHeader/>
+            <TeamHeader data={props.data}/>
+            <Coach data={props.data}/>
             <Roster/>
         </Container>
     );
 }
 
-function TeamHeader() {
+function TeamHeader(props) {
     const theme = useTheme().palette.secondary.contrastText;
     return (
         <Container className='Team-Header' maxWidth='false' disableGutters={true} sx={{
-            display:'flex',
             bgcolor: 'secondary.main'
         }}>
-            <img src={Arsenal} alt='Arsenal' width='125px' height='125px'/>
+            <img src={props.data.image_path} alt={props.data.team_name} width='125px' height='125px'/>
             <div style={{ flexGrow:1 }}>
                 <h1 className='Team-Text' style={{
                     color: theme
                 }}>
-                    Arsenal F.C.
+                    {props.data.team_name}
                 </h1>
-                <h2 className='City-Text' style={{
-                    color: theme
-                }}>London, England</h2>
+            </div>
+        </Container>
+    );
+}
+
+function Coach(props) {
+    const theme = useTheme().palette.primary.contrastText;
+    return (
+        <Container maxWidth='false' disableGutters={true} sx={{
+            display:'flex',
+            bgcolor:'primary.main'
+        }}>
+            <img src={props.data.coach_image_path} alt={props.data.coach_name} height='200px'/>
+            <div style={{ flexGrow: 1}}>
+                <h1 className='Coach-Text' style={{
+                    color: theme,
+                    fontSize: '3em'
+                }}>
+                    Coach
+                </h1>
             </div>
         </Container>
     );

@@ -5,17 +5,12 @@ import ListItemText from '@mui/material/ListItemText';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem'
 
-export default function WeekSelector() {
+export default function WeekSelector(props) {
     //List out options
-    const options = [
-        'Full Season',
-        'Week 1',
-        'Week 2', 
-        'Week 3'
-    ]
+    const options = [...Array(38).keys()].map(x=> 'Week ' + (x+1))
 
     const [anchor, setAnchor] = useState(null)
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(37);
     const isOpen = Boolean(anchor)
 
     const handleOpenMenu = (event) => {
@@ -29,7 +24,7 @@ export default function WeekSelector() {
     const handleSelect = (event, index) => {
         setSelected(index);
         setAnchor(null);
-        //send GET for specific data required
+        props.getStandings(index+1);
     }
 
     return (
@@ -46,15 +41,16 @@ export default function WeekSelector() {
                 />
             </ListItemButton>
         </List>
-        <Menu anchorEl={anchor} open={isOpen} onClose={handleCloseMenu}
-            MenuListProps={{
-                role: 'listbox', dense: true, disablePadding: true,
-                sx: {
-                    width: '200px',
-                    bgcolor: 'secondary.main'
-                }
-            }} 
-        >
+        <Menu anchorEl={anchor} open={isOpen} onClose={handleCloseMenu} sx={{
+            maxHeight: '160px'
+        }}
+        MenuListProps={{
+            role: 'listbox', dense: true, disablePadding: true,
+            sx: {
+                width: '200px!important',
+                bgcolor: 'secondary.main'
+            }
+        }}>
             {options.map((option, index) => (
                 <MenuItem 
                     className='Menu-Item'

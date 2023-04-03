@@ -7,7 +7,7 @@ import logo from './images/logo.png'
 import Input from '@mui/material/Input';
 import SearchIcon from '@mui/icons-material/SearchRounded';
 
-export default function Navbar() {
+export default function Navbar(props) {
     return (
         <AppBar position='static'>
             <Container maxWidth='false' sx={{
@@ -17,21 +17,22 @@ export default function Navbar() {
                     <img src={logo} alt='logo' width='75px' height='75px' style={{
                         margin: '10px 20px 10px 0px'
                     }}/>
-                    <SearchBar/>
+                    <SearchBar search={props.search}/>
                     <Button className='Top-Button' variant='contained' sx={{
                         color:'primary.main',
                         bgcolor:'primary.contrastText',
                         '&:hover' : {
-                            bgcolor:'primary.contrastText'
+                            bgcolor:'primary.contrastText',
+                            filter:'invert(0.1)'
                         }
-                    }}><strong>Top Players</strong></Button>
+                    }}><strong>Top Players and Teams</strong></Button>
                 </Toolbar>
             </Container>
         </AppBar>
     );
 }
 
-function SearchBar() {
+function SearchBar(props) {
     return (
         <Container className='Search' disableGutters maxWidth='false' sx={{
             display:'flex',

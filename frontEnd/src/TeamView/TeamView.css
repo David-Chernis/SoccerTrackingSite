@@ -1,5 +1,5 @@
 .Team-Header {
-    display: flex;
+    display: flex!important;
     flex-direction: row;
     align-items: center;
     column-gap: 52px;           
@@ -15,14 +15,6 @@
     text-align: left;
     font-family: Roboto, Helvetica, Arial, sans-serif;
     margin:0;
-}
-
-.Team-Text {
-    font-size: 3em;
-}
-
-.City-Text {
-    font-size: 2em;
-    font-style: italic;
+    font-size: 4em;
 }
 

@@ -9,16 +9,16 @@
 }
 
 .Abbr-Cell {
-    display:none
+    display:none!important
 }
 
 
 @media screen and (max-width:575px) {
     .Name-Cell {
-        display:none;
+        display: none!important;
     }
 
     .Abbr-Cell {
-        display:table-cell
+        display:table-cell!important
     }
 }
