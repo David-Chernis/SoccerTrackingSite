@@ -40,7 +40,7 @@ CREATE TABLE Attackers (
   shots_on_target INT,
   PRIMARY KEY (player_id, team_id),
   FOREIGN KEY (team_id) REFERENCES Teams(team_id),
-  FOREIGN KEY (player_id) REFERENCES Players(player_id)
+  FOREIGN KEY (player_id) REFERENCES Players(player_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Defenders (
@@ -51,7 +51,7 @@ CREATE TABLE Defenders (
   clearances INT,
   PRIMARY KEY (player_id, team_id),
   FOREIGN KEY (team_id) REFERENCES Teams(team_id),
-  FOREIGN KEY (player_id) REFERENCES Players(player_id)
+  FOREIGN KEY (player_id) REFERENCES Players(player_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Midfielders (
@@ -61,7 +61,7 @@ CREATE TABLE Midfielders (
   accurate_passes INT,
   PRIMARY KEY (player_id, team_id),
   FOREIGN KEY (team_id) REFERENCES Teams(team_id),
-  FOREIGN KEY (player_id) REFERENCES Players(player_id)
+  FOREIGN KEY (player_id) REFERENCES Players(player_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Goalies (
@@ -71,7 +71,7 @@ CREATE TABLE Goalies (
   goals_conceded INT,
   PRIMARY KEY (player_id, team_id),
   FOREIGN KEY (team_id) REFERENCES Teams(team_id),
-  FOREIGN KEY (player_id) REFERENCES Players(player_id)
+  FOREIGN KEY (player_id) REFERENCES Players(player_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Matches (
