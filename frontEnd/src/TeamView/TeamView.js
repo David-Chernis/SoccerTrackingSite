@@ -1,5 +1,6 @@
 import './TeamView.css'
 import Roster from './Roster'
+import Matchlist from './Matchlist'
 
 import { Container } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
@@ -44,6 +45,7 @@ export default function TeamView(props) {
             <TeamStats data={data}/>
             <Coach data={data}/>
             <Roster/>
+            <Matchlist/>
         </Container>
     );
 }

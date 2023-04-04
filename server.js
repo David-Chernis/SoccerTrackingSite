@@ -120,6 +120,17 @@ app.get('/miniGame', async (req, res) => {
       res.status(500).send(`Error retrieving players of team with id ${teamId}`);
     }
   })
+  app.get('/Team/:id/matches', async (req, res) => {
+    const teamId = req.params.id;
+    try {
+      const matches = await teamPage.matchesByTeam(teamId);
+      res.send(matches)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving matches of team with id ${teamId}`);
+    }
+  })
+
 
   app.get('/TopTeamPlayer/TeamsRating', async (req, res) => {
     try {

@@ -63,6 +63,10 @@ export default function Roster() {
                             bgcolor: 'primary.main',
                             color: 'primary.contrastText',
                             border: 0
+                        },
+                        '& th a, & td a': {
+                            color: 'primary.contrastText',
+                            textDecoration: 'none!important'
                         }
                     }}>
                         <TableCell>
@@ -70,7 +74,11 @@ export default function Roster() {
                                 borderRadius: '25px'
                             }}/>
                         </TableCell>
-                        <TableCell>{row.display_name}</TableCell>
+                        <TableCell>
+                            <a href={window.location.origin + '/player/' + row.player_id}>
+                                {row.display_name}
+                            </a>
+                        </TableCell>
                         <TableCell>{row.position_name}</TableCell>
                         <TableCell>
                             <img src={row.nationality_image_path} height='25px' alt={row.nationality} title={row.nationality}/>

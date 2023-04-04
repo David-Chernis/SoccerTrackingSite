@@ -4,7 +4,6 @@ import LeagueView from './LeagueView/LeagueView'
 import TeamView from './TeamView/TeamView'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-import { useState } from 'react';
 import PlayerView from './PlayerView/PlayerView';
 import TopTeamPLayer from './TopPlayerTeamView/TopTeamPlayer'
 import { BrowserRouter, Routes, Route } from "react-router-dom";

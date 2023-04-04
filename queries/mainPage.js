@@ -77,6 +77,7 @@ async function get_weekly_results(week) {
               team_id
       )
       SELECT
+          t.team_id,
           t.team_name,
           t.team_code,
           t.image_path,
