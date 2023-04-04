@@ -24,7 +24,7 @@ export default function Navbar(props) {
             }}/>
           </a>
           <SearchBar search={props.search} />
-          <Button className="Top-Button" variant="contained" sx={{
+          <Button className="Top-Button" variant="contained" href={window.location.origin + '/TopTeamPlayer'} sx={{
             color: "primary.main",
             bgcolor: "primary.contrastText",
             "&:hover": {
