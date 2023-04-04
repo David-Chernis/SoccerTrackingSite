@@ -4,12 +4,8 @@ import LeagueView from './LeagueView/LeagueView'
 import TeamView from './TeamView/TeamView'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-<<<<<<< HEAD
 import { useState } from 'react';
 import PlayerView from './PlayerView/PlayerView';
-=======
-
->>>>>>> bf2bd82e0654eb67b0fe167cde8c59b71623305d
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MiniGame from './MiniGameView/MiniGameView';
@@ -45,21 +41,10 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/'>
-<<<<<<< HEAD
-              <Route index element={
-                <LeagueView/>
-              }/>
-              <Route path='teams' element={
-                <TeamView data={teamData}/>
-              }/>
-              <Route path='player/:id' element={
-                <PlayerView />
-              } />
-=======
               <Route index Component={LeagueView}/>
               <Route path='Team/:id' Component={TeamView}/>
+              <Route path='player/:id' Component={PlayerView}/>
               <Route path='miniGame' Component={MiniGame}/>
->>>>>>> bf2bd82e0654eb67b0fe167cde8c59b71623305d
             </Route>
           </Routes>
         </BrowserRouter>

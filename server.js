@@ -61,7 +61,6 @@ app.get('/miniGame', async (req, res) => {
     }
   });
 
-<<<<<<< HEAD
   app.post('/Player/:id', (req, res) => {
     console.log("in the post");
     const playerId = req.params.id;
@@ -90,7 +89,6 @@ app.get('/miniGame', async (req, res) => {
     res.status(200).send('Player stats updated successfully');
   });
   
-=======
   app.get('/Team/:id', async (req, res) => {
     const teamId = req.params.id;
     try {
@@ -112,7 +110,6 @@ app.get('/miniGame', async (req, res) => {
       res.status(500).send(`Error retrieving players of team with id ${teamId}`);
     }
   })
->>>>>>> bf2bd82e0654eb67b0fe167cde8c59b71623305d
 
 
 const PORT = 8000;
