@@ -111,7 +111,48 @@ app.get('/miniGame', async (req, res) => {
     }
   })
 
+  app.get('/TopTeamPlayer/PlayersRating', async (req, res) => {
+    try {
+      const players = await topPlayersTeams.top_rated_players();
+      res.send(players)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving players of team with id ${teamId}`);
+    }
+  })
 
+  app.get('/TopTeamPlayer/TeamsRating', async (req, res) => {
+    try {
+      const teams = await topPlayersTeams.top_rated_teams();
+      res.send(teams)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving players of team with id ${teamId}`);
+    }
+  })
+
+  app.get('/TopTeamPlayer/TopGoalsScored', async (req, res) => {
+    try {
+      const teams = await topPlayersTeams.top_teams_average_scoring();
+      res.send(teams)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving players of team with id ${teamId}`);
+    }
+  })
+
+  app.get('/TopTeamPlayer/TopGoalsConceded', async (req, res) => {
+    try {
+      const teams = await topPlayersTeams.top_teams_average_conceeded();
+      res.send(teams)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving players of team with id ${teamId}`);
+    }
+  })
+  
+
+  
 const PORT = 8000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);

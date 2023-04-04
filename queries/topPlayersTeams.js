@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 
 /**
  * Retrieves the list of top-rated players with an average rating above 7.
- * @returns An array of objects containing the player's in the form of [{display_name,avg_rating,player_image_path}]
+ * @returns An array of objects containing the player's in the form of [{display_name,avg_rating,player_image_path, nationality_image_path}]
  */
 async function top_rated_players() {
   const connection = mysql.createConnection({
@@ -23,7 +23,8 @@ async function top_rated_players() {
                 player_id,
                 display_name,
                 avg_rating,
-                image_path AS player_image_path
+                image_path AS player_image_path,
+                nationality_image_path
             FROM
                 Players
             GROUP BY
