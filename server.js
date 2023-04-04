@@ -79,6 +79,17 @@ app.get('/miniGame', async (req, res) => {
     }
   })
 
+  app.get('/Team/:id/matches', async (req, res) => {
+    const teamId = req.params.id;
+    try {
+      const matches = await teamPage.matchesByTeam(teamId);
+      res.send(matches)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving matches of team with id ${teamId}`);
+    }
+  })
+
 
 const PORT = 8000;
 app.listen(PORT, () => {
