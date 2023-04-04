@@ -24,19 +24,26 @@ export default function Navbar(props) {
             }}/>
           </a>
           <SearchBar search={props.search} />
-          <Button
-            className="Top-Button"
-            variant="contained"
-            sx={{
-              color: "primary.main",
+          <Button className="Top-Button" variant="contained" sx={{
+            color: "primary.main",
+            bgcolor: "primary.contrastText",
+            "&:hover": {
               bgcolor: "primary.contrastText",
-              "&:hover": {
-                bgcolor: "primary.contrastText",
-                filter: "invert(0.1)",
-              },
-            }}
-          >
+              filter: "invert(0.1)",
+            }
+          }}>
             <strong>Top Players and Teams</strong>
+          </Button>
+          <Button className="Top-Button" variant="contained" href={window.location.origin + '/miniGame'} sx={{
+            marginLeft: '20px',
+            color: "primary.main",
+            bgcolor: "primary.contrastText",
+            "&:hover": {
+              bgcolor: "primary.contrastText",
+              filter: "invert(0.1)",
+            }
+          }}>
+            <strong>Minigame</strong>
           </Button>
         </Toolbar>
       </Container>
