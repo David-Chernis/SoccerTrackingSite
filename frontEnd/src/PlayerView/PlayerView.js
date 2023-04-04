@@ -2,7 +2,9 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container } from '@mui/system';
+import Button from "@mui/material/Button";
 import { useTheme } from '@mui/material/styles';
+import TextField from "@mui/material/TextField";
 import './PlayerView.css';
 
 function PlayerView(props) {
@@ -99,30 +101,84 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
       case 'Defender':
         return (
           <>
-            <TableCell>{player.total_tackles}</TableCell>
-            <TableCell>{player.interceptions}</TableCell>
-            <TableCell>{player.clearances}</TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="total_tackles"
+                  value={player.total_tackles}
+                  onChange={handleChange}
+                />
+            </TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="interceptions"
+                  value={player.interceptions}
+                  onChange={handleChange}
+                />
+            </TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="clearances"
+                  value={player.clearances}
+                  onChange={handleChange}
+                />
+            </TableCell>
           </>
         );
       case 'Attacker':
         return (
           <>
-            <TableCell>{player.total_goals}</TableCell>
-            <TableCell>{player.shots_on_target}</TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="total_goals"
+                  value={player.total_goals}
+                  onChange={handleChange}
+                />
+            </TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="shots_on_target"
+                  value={player.shots_on_target}
+                  onChange={handleChange}
+                />
+            </TableCell>
           </>
         );
       case 'Midfielder':
         return (
           <>
-            <TableCell>{player.assists}</TableCell>
-            <TableCell>{player.accurate_passes}</TableCell>
+            <TableCell>
+                  <TextField className = "textfield"  
+                    name="assists"
+                    value={player.assists}
+                    onChange={handleChange}
+                  />
+              </TableCell>
+              <TableCell>
+                  <TextField className = "textfield"  
+                    name="accurate_passes"
+                    value={player.accurate_passes}
+                    onChange={handleChange}
+                  />
+              </TableCell>
           </>
         );
       case 'Goalkeeper':
         return (
           <>
-            <TableCell>{player.saves}</TableCell>
-            <TableCell>{player.goals_conceded}</TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="saves"
+                  value={player.saves}
+                  onChange={handleChange}
+                />
+            </TableCell>
+            <TableCell>
+                <TextField className = "textfield"  
+                  name="goals_conceded"
+                  value={player.goals_conceded}
+                  onChange={handleChange}
+                />
+            </TableCell>
           </>
         );
       default:
@@ -202,48 +258,42 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
           >
             {/* Common stats */}
             <TableCell>
-              <input
-                type="text"
+              <TextField className = "textfield"  
                 name="avg_rating"
                 value={updatedPlayer.avg_rating}
                 onChange={handleChange}
               />
             </TableCell>
             <TableCell>
-              <input
-                type="text"
+              <TextField className = "textfield"  
                 name="date_of_birth"
                 value={formatDateOfBirth(updatedPlayer.date_of_birth)}
                 onChange={handleChange}
               />
             </TableCell>
             <TableCell>
-              <input
-                type="text"
+              <TextField className = "textfield"  
                 name="player_height"
                 value={updatedPlayer.player_height}
                 onChange={handleChange}
               />
             </TableCell>
             <TableCell>
-              <input
-                type="text"
+              <TextField className = "textfield"  
                 name="player_weight"
                 value={updatedPlayer.player_weight}
                 onChange={handleChange}
               />
             </TableCell>
             <TableCell>
-              <input
-                type="text"
+              <TextField className = "textfield"  
                 name="position_name"
                 value={updatedPlayer.position_name}
                 onChange={handleChange}
               />
             </TableCell>
             <TableCell>
-              <input
-                type="text"
+              <TextField className = "textfield"  
                 name="yellow_cards"
                 value={updatedPlayer.yellow_cards}
                 onChange={handleChange}
@@ -255,7 +305,21 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
           </TableRow>
         </TableBody>
       </Table>
-      <button type="submit">Update Player Stats</button>
+      <Button
+            type = "submit"
+            className="Top-Button"
+            variant="contained"
+            sx={{
+              color: "primary.main",
+              bgcolor: "primary.contrastText",
+              "&:hover": {
+                bgcolor: "primary.contrastText",
+                filter: "invert(0.1)",
+              },
+            }}
+          >
+            <strong>Update Player Stats</strong>
+        </Button>
     </form>
   );
 }
