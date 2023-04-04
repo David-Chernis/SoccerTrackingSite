@@ -100,6 +100,16 @@ app.get('/miniGame', async (req, res) => {
     }
   })
 
+  app.delete('/Team/:teamId/player/:playerId', async (req,res) => {
+    try{
+      teamPage.deletePlayer(req.params.playerId, req.params.teamId)
+      res.send(`Player ${req.params.playerId} deleted`)
+    } catch (err0r) {
+      console.error(error)
+      res.status(500).send(`Error deleting player with id ${req.params.playerId}`)
+    }
+  })
+
   app.get('/Team/:id/roster', async (req, res) => {
     const teamId = req.params.id;
     try {

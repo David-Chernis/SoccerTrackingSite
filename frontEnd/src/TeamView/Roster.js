@@ -1,24 +1,21 @@
-import {Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { useState, useEffect } from 'react';
 
-import Cech from '../images/cech.jpg'
-import Ozil from '../images/ozil.jpg'
-import Giroud from '../images/giroud.jpg'
-
-import France from '../images/France.png'
-import Germany from '../images/Germany.png'
-import Czechia from '../images/Czechia.png'
-
-function createRowTeam(image_path, display_name, position_name, nationality, nationality_image_path, date_of_birth, player_height, player_weight, yellow_cards) {
-    return {image_path, display_name, position_name, nationality, nationality_image_path, date_of_birth, player_height, player_weight, yellow_cards}
-}
-
 export default function Roster() {
-    const [rows, setRows] = useState([
-        createRowTeam(Cech, 'Petr Cech', 'GK', 'Czech', Czechia, ' ', ' ', ' ', ' '),
-        createRowTeam(Ozil, 'Mesut Ozil', 'MF', 'German', Germany, ' ', ' ', ' ', ' '),
-        createRowTeam(Giroud, 'Olivier Giroud', 'FW', 'French', France, ' ', ' ', ' ', ' ')
-    ])
+    const [rows, setRows] = useState([{}])
+
+    function deletePlayer(playerID, name) {
+        if(window.confirm('Are you sure you want to delete ' + name + '?')){
+            fetch("http://localhost:8000" + window.location.pathname + '/player/' + playerID, {
+                method: 'DELETE'
+            }).then((response)=>{
+                return response.text()
+            }).then((data)=>{
+                console.log(data)
+                loadRows()
+            })
+        }
+    }
 
     function loadRows() {
         fetch("http://localhost:8000" + window.location.pathname + '/roster', {
@@ -53,6 +50,7 @@ export default function Roster() {
                     <TableCell>Height</TableCell>
                     <TableCell>Weight</TableCell>
                     <TableCell>Yellows</TableCell>
+                    <TableCell>DELETE</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -87,6 +85,13 @@ export default function Roster() {
                         <TableCell>{row.player_height}</TableCell>
                         <TableCell>{row.player_weight}</TableCell>
                         <TableCell>{row.yellow_cards}</TableCell>
+                        <TableCell>
+                            <Button onClick={()=>{deletePlayer(row.player_id, row.display_name)}} sx={{
+                                color:'primary.contrastText'
+                            }}>
+                                &mdash;
+                            </Button>
+                        </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
