@@ -1,0 +1,14 @@
+.gameBox{
+    margin-top: 50px;
+}
+
+.scoreField {
+    margin: 0 10px;
+  }
+
+  .teamImage {
+    width: 80px;
+    height: auto;
+    margin: 10px;
+  }
+  

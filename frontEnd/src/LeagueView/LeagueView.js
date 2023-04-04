@@ -5,16 +5,50 @@ import PremierLeague from '../images/Premier-League-Logo.png'
 
 import { Container } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
 
 export default function LeagueView() {
-    return (
-        <Container maxWidth='false' sx={{
+    const [rows, setRows] = useState([{
+        image_path: '',
+        team_name: '',
+        team_code: '',
+        total_draws: '',
+        total_losses: '',
+        total_wins: '',
+        total_points: ''
+    }])
+
+    function getStandings(week) {
+        fetch("http://localhost:8000/standings?week=" + week, {
+            method: 'GET',
+            headers: {
+               'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        }).then((data) => {
+            console.log(data)
+            setRows(data)
+        }).catch((error) => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    }
+
+    useEffect(()=> {
+        getStandings(38);
+    },[]);
+
+    return(
+        <Container className='LeagueView' maxWidth='false' sx={{
             maxWidth:'1500px',
             paddingTop:'50px'
         }}>
             <LeagueHeader/>
-            <WeekSelector/>
-            <Standings/>
+            <WeekSelector getStandings={getStandings}/>
+            <Standings rows={rows}/>
         </Container>
     );
 }
