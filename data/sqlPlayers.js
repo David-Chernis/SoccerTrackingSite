@@ -12,7 +12,9 @@ var connection = mysql.createConnection({
 
 //There may be connectivity issues caused by authentication (need to add IP to aws security protocol)
 
-const tids = [1, 3, 6, 8, 9, 10, 13, 14, 15, 18, 19, 20, 25, 26, 30, 33, 42, 51, 52, 65];
+const tids = [1];
+
+// , 3, 6, 8, 9, 10, 13, 14, 15, 18, 19, 20, 25, 26, 30, 33, 42, 51, 52, 65
 
 connection.connect(async (err) => {
   //Accessing Teams and Stats Data need to populate and also add coaches
@@ -249,7 +251,7 @@ async function add_player(
     ];
     connection.query(sql, [values], (error, res) => {
       if (error) throw error;
-      console.log("Match Added");
+      console.log("Player Added");
       console.log(res)
       resolve("Success");
     });
@@ -316,7 +318,7 @@ async function add_goalie(
 ) {
   return new Promise((resolve, reject) => {
     const sql =
-      "INSERT INTO Goalies (team_id, player_id, saves, goals_conceded) VALUES ?";
+      "INSERT INTO Goalkeepers (team_id, player_id, saves, goals_conceded) VALUES ?";
     const values = [
       [
         team_id, 
