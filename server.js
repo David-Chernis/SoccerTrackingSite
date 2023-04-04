@@ -1,12 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const bodyParser = require('body-parser');
 const mainPage = require("./queries/mainPage.js");
 const playerPage = require("./queries/queriesPlayerPage.js");
 const teamPage = require("./queries/queriesTeamPage.js");
 const topPlayersTeams = require("./queries/topPlayersTeams.js");
 
 app.use(cors());
+app.use(bodyParser.json());
 
 app.get("/searchBar", async (req, res) => {
     const input = req.query.input;
@@ -47,16 +49,46 @@ app.get('/miniGame', async (req, res) => {
   });
 
   app.get('/Player/:id', async (req, res) => {
+    console.log("in the get");
     const playerId = req.params.id;
     try {
       const player = await playerPage.getPlayerStats(playerId);
-      res.send(player);
+      console.log(player)
+      res.json(player);
     } catch (error) {
       console.error(error);
       res.status(500).send(`Error retrieving player with id ${playerId}.`);
     }
   });
 
+  app.post('/Player/:id', (req, res) => {
+    console.log("in the post");
+    const playerId = req.params.id;
+    const body = req.body
+    try {
+      const res = playerPage.updatePlayer(
+        body.team_id, 
+        playerId, 
+        body.nationality, 
+        body.display_name, 
+        body.image_path, 
+        body.player_height, 
+        body.player_weight, 
+        body.date_of_birth, 
+        body.yellow_cards,
+        body.avg_rating,
+        body.position_name,
+        body.nationality_image_path
+        );
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error retrieving player with id ${playerId}.`);
+    }
+  
+    res.status(200).send('Player stats updated successfully');
+  });
+  
   app.get('/Team/:id', async (req, res) => {
     const teamId = req.params.id;
     try {

@@ -4,7 +4,8 @@ import LeagueView from './LeagueView/LeagueView'
 import TeamView from './TeamView/TeamView'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Container from '@mui/material/Container';
-
+import { useState } from 'react';
+import PlayerView from './PlayerView/PlayerView';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MiniGame from './MiniGameView/MiniGameView';
@@ -42,6 +43,7 @@ function App() {
             <Route path='/'>
               <Route index Component={LeagueView}/>
               <Route path='Team/:id' Component={TeamView}/>
+              <Route path='player/:id' Component={PlayerView}/>
               <Route path='miniGame' Component={MiniGame}/>
             </Route>
           </Routes>
