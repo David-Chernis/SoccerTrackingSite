@@ -171,6 +171,32 @@ app.get('/miniGame', async (req, res) => {
       res.status(500).send(`Error retrieving players of team with id ${teamId}`);
     }
   })
+
+  app.post('/Team/:id/addPlayer', async (req, res) => {
+    player = req.body
+    player_image = 'https://cdn.sportmonks.com/images/soccer/placeholder.png'
+    flag_image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Empty_flag.svg/2560px-Empty_flag.svg.png'
+    try {
+      teamPage.insertPlayer(
+        req.params.id,
+        player.id,
+        player.nationality,
+        player.display_name,
+        player_image,
+        player.player_height,
+        player.player_weight,
+        player.date_of_birth,
+        player.yellow_cards,
+        8.5,
+        player.position,
+        flag_image
+      )
+      res.send(`Added new player!`)
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error adding player to team with id ${req.params.id}`)
+    }
+  })
   
 
   
