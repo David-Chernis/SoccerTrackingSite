@@ -61,33 +61,58 @@ app.get('/miniGame', async (req, res) => {
     }
   });
 
-  app.post('/Player/:id', (req, res) => {
+  const Joi = require('joi');
+
+  const updatePlayerSchema = Joi.object({
+    team_id: Joi.string().required(),
+    nationality: Joi.string().required(),
+    display_name: Joi.string().required(),
+    image_path: Joi.string().required(),
+    player_height: Joi.number().required(),
+    player_weight: Joi.number().required(),
+    date_of_birth: Joi.date().required(),
+    yellow_cards: Joi.number().required(),
+    avg_rating: Joi.number().required(),
+    position_name: Joi.string().required(),
+    nationality_image_path: Joi.string().required(),
+  });
+  
+  app.post('/Player/:id', async (req, res) => {
     console.log("in the post");
     const playerId = req.params.id;
-    const body = req.body
+    const { error, value } = updatePlayerSchema.validate(req.body);
+    
+    if (error) {
+      console.error(error);
+      res.status(400).send(`Invalid request body: ${error.message}`);
+      return;
+    }
+  
     try {
-      const res = playerPage.updatePlayer(
-        body.team_id, 
+      const response = await playerPage.updatePlayer(
+        value.team_id, 
         playerId, 
-        body.nationality, 
-        body.display_name, 
-        body.image_path, 
-        body.player_height, 
-        body.player_weight, 
-        body.date_of_birth, 
-        body.yellow_cards,
-        body.avg_rating,
-        body.position_name,
-        body.nationality_image_path
-        );
-      console.log(res);
+        value.nationality, 
+        value.display_name, 
+        value.image_path, 
+        value.player_height, 
+        value.player_weight, 
+        value.date_of_birth, 
+        value.yellow_cards,
+        value.avg_rating,
+        value.position_name,
+        value.nationality_image_path
+      );
+      
+      console.log(response);
+      res.status(200).send('Player stats updated successfully');
     } catch (error) {
       console.error(error);
       res.status(500).send(`Error adding player with id ${playerId}`);
     }
-  
-    res.status(200).send('Player stats updated successfully');
   });
+  
+  
   
   app.get('/Team/:id', async (req, res) => {
     const teamId = req.params.id;
@@ -100,15 +125,15 @@ app.get('/miniGame', async (req, res) => {
     }
   })
 
-  app.delete('/Team/:teamId/player/:playerId', async (req,res) => {
-    try{
-      teamPage.deletePlayer(req.params.playerId, req.params.teamId)
-      res.send(`Player ${req.params.playerId} deleted`)
-    } catch (err0r) {
-      console.error(error)
-      res.status(500).send(`Error deleting player with id ${req.params.playerId}`)
+  app.delete('/Team/:teamId/player/:playerId', async (req, res) => {
+    try {
+      await teamPage.deletePlayer(req.params.playerId, req.params.teamId);
+      res.send(`Player ${req.params.playerId} deleted`);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send(`Error deleting player with id ${req.params.playerId}`);
     }
-  })
+  });
 
   app.get('/Team/:id/roster', async (req, res) => {
     const teamId = req.params.id;
@@ -130,6 +155,7 @@ app.get('/miniGame', async (req, res) => {
       res.status(500).send(`Error retrieving players of team with id ${teamId}`);
     }
   })
+
   app.get('/Team/:id/matches', async (req, res) => {
     const teamId = req.params.id;
     try {
@@ -172,50 +198,85 @@ app.get('/miniGame', async (req, res) => {
     }
   })
 
+  const addPlayerSchema = Joi.object({
+    id: Joi.number().required(),
+    nationality: Joi.string().required(),
+    display_name: Joi.string().required(),
+    player_height: Joi.number().required(),
+    player_weight: Joi.number().required(),
+    date_of_birth: Joi.date().required(),
+    yellow_cards: Joi.number().required(),
+    position: Joi.string().valid('Attacker', 'Defender', 'Midfielder', 'Goalkeeper').required(),
+    total_goals: Joi.when('position', { is: 'Attacker', then: Joi.number().required() }),
+    shots_on_target: Joi.when('position', { is: 'Attacker', then: Joi.number().required() }),
+    total_tackles: Joi.when('position', { is: 'Defender', then: Joi.number().required() }),
+    interceptions: Joi.when('position', { is: 'Defender', then: Joi.number().required() }),
+    clearances: Joi.when('position', { is: 'Defender', then: Joi.number().required() }),
+    assists: Joi.when('position', { is: 'Midfielder', then: Joi.number().required() }),
+    accurate_passes: Joi.when('position', { is: 'Midfielder', then: Joi.number().required() }),
+    saves: Joi.when('position', { is: 'Goalkeeper', then: Joi.number().required() }),
+    goals_conceded: Joi.when('position', { is: 'Goalkeeper', then: Joi.number().required() })
+  });
+  
   app.post('/Team/:id/addPlayer', async (req, res) => {
-    player = req.body
-    player_image = 'https://cdn.sportmonks.com/images/soccer/placeholder.png'
-    flag_image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Empty_flag.svg/2560px-Empty_flag.svg.png'
+    const player = req.body;
+    const player_image = 'https://cdn.sportmonks.com/images/soccer/placeholder.png';
+    const flag_image = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Empty_flag.svg/2560px-Empty_flag.svg.png';
+  
     try {
-      teamPage.insertPlayer(
+      const validatedPlayer = await addPlayerSchema.validateAsync(player);
+      await teamPage.insertPlayer(
         req.params.id,
-        player.id,
-        player.nationality,
-        player.display_name,
+        validatedPlayer.id,
+        validatedPlayer.nationality,
+        validatedPlayer.display_name,
         player_image,
-        player.player_height,
-        player.player_weight,
-        player.date_of_birth,
-        player.yellow_cards,
+        validatedPlayer.player_height,
+        validatedPlayer.player_weight,
+        validatedPlayer.date_of_birth,
+        validatedPlayer.yellow_cards,
         8.5,
-        player.position,
+        validatedPlayer.position,
         flag_image
-      )
-      
-      if (player.position == "Attacker"){
-        teamPage.insertAttacker(
-          player.total_goals, player.shots_on_target
-        )
-      } if (player.position == "Defender"){
-        teamPage.insertDefender(
-          player.total_tackles, player.interceptions, player.clearances
-        )
-      } if (player.position == "Midfielder"){
-        teamPage.insertMidfielder(
-          player.assists, player.accurate_passes
-        )
-      } if(player.position == "Goalkeeper"){
-        teamPage.insertGoalkeeper(
-          player.saves, player.goals_conceded
-        )
-      } 
-
-      res.send(`Added new player!`)
+      );
+  
+      if (validatedPlayer.position === 'Attacker') {
+        await teamPage.insertAttacker(
+          validatedPlayer.id,
+          validatedPlayer.total_goals,
+          validatedPlayer.shots_on_target,
+          req.params.id
+        );
+      } else if (validatedPlayer.position === 'Defender') {
+        await teamPage.insertDefender(
+          validatedPlayer.id,
+          validatedPlayer.total_tackles,
+          validatedPlayer.interceptions,
+          validatedPlayer.clearances,
+          req.params.id
+        );
+      } else if (validatedPlayer.position === 'Midfielder') {
+        await teamPage.insertMidfielder(
+          validatedPlayer.id,
+          validatedPlayer.assists,
+          validatedPlayer.accurate_passes,
+          req.params.id
+        );
+      } else if (validatedPlayer.position === 'Goalkeeper') {
+        await teamPage.insertGoalkeeper(
+          validatedPlayer.id,
+          validatedPlayer.saves,
+          validatedPlayer.goals_conceded,
+          req.params.id
+        );
+      }
+  
+      res.send('Added new player!');
     } catch (error) {
       console.error(error);
-      res.status(500).send(`Error adding player to team with id ${req.params.id}`)
+      res.status(500).send(`Bad request: ${error.message}`);
     }
-  })
+  });
   
 
   

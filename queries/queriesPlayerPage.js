@@ -68,30 +68,37 @@ function updatePlayer(teamId, playerId, nationality, display_name, image_path, p
   });
 
   const query = `
-        UPDATE 
-            Players
-        SET 
-          nationality = ?,
-          display_name = ?,
-          image_path = ?,
-          player_height = ?,
-          player_weight = ?,
-          date_of_birth = ?,
-          yellow_cards = ?,
-          avg_rating = ?,
-          position_name = ?,
-          nationality_image_path = ?
-        WHERE 
-            team_id = ? AND player_id = ?`;
+    UPDATE 
+        Players
+    SET 
+        nationality = ?,
+        display_name = ?,
+        image_path = ?,
+        player_height = ?,
+        player_weight = ?,
+        date_of_birth = ?,
+        yellow_cards = ?,
+        avg_rating = ?,
+        position_name = ?,
+        nationality_image_path = ?
+    WHERE 
+        team_id = ? AND player_id = ?`;
+
   const values = [nationality, display_name, image_path, player_height, player_weight, date_of_birth, yellow_cards, avg_rating, position_name, nationality_image_path, teamId, playerId];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log("Player rating updated successfully");
-    connection.end();
-    return "successful"
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("Player rating updated successfully");
+        connection.end();
+        resolve("successful");
+      }
+    });
   });
 }
+
 
 // updatePlayer(1, 1001, 9.5, 'avg_rating');
 // getPlayerStats(22);

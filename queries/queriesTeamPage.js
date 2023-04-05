@@ -15,20 +15,7 @@ const mysql = require("mysql2");
  * @param {*} positionName
  * @param {*} nationalityImagePath
  */
-function insertPlayer(
-  teamId,
-  playerId,
-  nationality,
-  displayName,
-  imagePath,
-  playerHeight,
-  playerWeight,
-  dateOfBirth,
-  yellowCards,
-  avgRating,
-  positionName,
-  nationalityImagePath
-) {
+function insertPlayer(teamId, playerId, nationality, displayName, imagePath, playerHeight, playerWeight, dateOfBirth, yellowCards, avgRating, positionName, nationalityImagePath) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -38,45 +25,39 @@ function insertPlayer(
   });
 
   const query = `
-  INSERT INTO 
-  Players (
-    team_id, 
-    player_id, 
-    nationality, 
-    display_name, 
-    image_path, 
-    player_height, 
-    player_weight, 
-    date_of_birth, 
-    yellow_cards, 
-    avg_rating, 
-    position_name, 
-    nationality_image_path)
-  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    INSERT INTO 
+    Players (
+      team_id, 
+      player_id, 
+      nationality, 
+      display_name, 
+      image_path, 
+      player_height, 
+      player_weight, 
+      date_of_birth, 
+      yellow_cards, 
+      avg_rating, 
+      position_name, 
+      nationality_image_path
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  const values = [
-    teamId,
-    playerId,
-    nationality,
-    displayName,
-    imagePath,
-    playerHeight,
-    playerWeight,
-    dateOfBirth,
-    yellowCards,
-    avgRating,
-    positionName,
-    nationalityImagePath,
-  ];
+  const values = [teamId, playerId, nationality, displayName, imagePath, playerHeight, playerWeight, dateOfBirth, yellowCards, avgRating, positionName, nationalityImagePath];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log("New player inserted successfully");
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("New player inserted successfully");
+        connection.end();
+        resolve();
+      }
+    });
   });
-  connection.end();
 }
 
-function insertAttacker(totalGoals, shotsOnTarget) {
+function insertAttacker(playerId, totalGoals, shotsOnTarget, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -90,20 +71,27 @@ function insertAttacker(totalGoals, shotsOnTarget) {
     Attackers (
       player_id, 
       total_goals, 
-      shots_on_target
+      shots_on_target,
+      team_id
     ) 
-    VALUES (?, ?, ?)`;
+    VALUES (?, ?, ?, ?)`;
 
-  const values = [playerId, totalGoals, shotsOnTarget];
+  const values = [playerId, totalGoals, shotsOnTarget, teamId];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log("New attacker inserted successfully");
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("New attacker inserted successfully");
+        connection.end();
+        resolve();
+      }
+    });
   });
-  connection.end();
 }
 
-function insertDefender(totalTackles, interceptions, clearances) {
+function insertDefender(playerId, totalTackles, interceptions, clearances, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -118,20 +106,28 @@ function insertDefender(totalTackles, interceptions, clearances) {
       player_id, 
       total_tackles, 
       interceptions, 
-      clearances
+      clearances,
+      team_id
     ) 
-    VALUES (?, ?, ?, ?)`;
+    VALUES (?, ?, ?, ?, ?)`;
 
-  const values = [playerId, totalTackles, interceptions, clearances];
+  const values = [playerId, totalTackles, interceptions, clearances, teamId];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log("New defender inserted successfully");
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("New defender inserted successfully");
+        connection.end();
+        resolve();
+      }
+    });
   });
-  connection.end();
 }
 
-function insertMidfielder(assists, accuratePasses) {
+
+function insertMidfielder(playerId, assists, accuratePasses, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -145,20 +141,27 @@ function insertMidfielder(assists, accuratePasses) {
     Midfielders (
       player_id, 
       assists, 
-      accurate_passes
+      accurate_passes,
+      team_id
     ) 
-    VALUES (?, ?, ?)`;
+    VALUES (?, ?, ?, ?)`;
 
-  const values = [playerId, assists, accuratePasses];
+  const values = [playerId, assists, accuratePasses, teamId];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log("New midfielder inserted successfully");
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("New midfielder inserted successfully");
+        connection.end();
+        resolve();
+      }
+    });
   });
-  connection.end();
 }
 
-function insertGoalkeeper(saves, goalsConceded) {
+function insertGoalkeeper(playerId, saves, goalsConceded, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
     user: "admin",
@@ -172,17 +175,24 @@ function insertGoalkeeper(saves, goalsConceded) {
     Goalkeepers (
       player_id, 
       saves, 
-      goals_conceded
+      goals_conceded,
+      team_id
     ) 
-    VALUES (?, ?, ?)`;
+    VALUES (?, ?, ?, ?)`;
 
-  const values = [playerId, saves, goalsConceded];
+  const values = [playerId, saves, goalsConceded, teamId];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log("New goalkeeper inserted successfully");
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log("New goalkeeper inserted successfully");
+        connection.end();
+        resolve();
+      }
+    });
   });
-  connection.end();
 }
 
 /**
@@ -328,14 +338,23 @@ function deletePlayer(playerId, teamId) {
 
   const values = [playerId, teamId];
 
-  connection.query(query, values, function (error, results, fields) {
-    if (error) throw error;
-    console.log(`Deleted ${results.affectedRows} row(s)`);
+  return new Promise((resolve, reject) => {
+    connection.query(query, values, function (error, results, fields) {
+      if (error) {
+        reject(error);
+      } else {
+        console.log(`Deleted ${results.affectedRows} row(s)`);
+        connection.end();
+        resolve();
+      }
+    });
   });
-  connection.end();
 }
 
+
 // insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
+// insertAttacker(1001, 2,3, 1);
+
 // deletePlayer(1001, 1);
 // teamfo(13).then((results) => console.log(results));
 // matchesByTeam(13).then((results) => console.log(results));
@@ -348,4 +367,8 @@ module.exports = {
   teamInfo,
   matchesByTeam,
   deletePlayer,
+  insertAttacker, 
+  insertDefender, 
+  insertGoalkeeper,
+  insertMidfielder
 };
