@@ -104,21 +104,21 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
             <TableCell>
                 <TextField className = "textfield"  
                   name="total_tackles"
-                  value={player.total_tackles}
+                  value={updatedPlayer.total_tackles}
                   onChange={handleChange}
                 />
             </TableCell>
             <TableCell>
                 <TextField className = "textfield"  
                   name="interceptions"
-                  value={player.interceptions}
+                  value={updatedPlayer.interceptions}
                   onChange={handleChange}
                 />
             </TableCell>
             <TableCell>
                 <TextField className = "textfield"  
                   name="clearances"
-                  value={player.clearances}
+                  value={updatedPlayer.clearances}
                   onChange={handleChange}
                 />
             </TableCell>
@@ -130,14 +130,14 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
             <TableCell>
                 <TextField className = "textfield"  
                   name="total_goals"
-                  value={player.total_goals}
+                  value={updatedPlayer.total_goals}
                   onChange={handleChange}
                 />
             </TableCell>
             <TableCell>
                 <TextField className = "textfield"  
                   name="shots_on_target"
-                  value={player.shots_on_target}
+                  value={updatedPlayer.shots_on_target}
                   onChange={handleChange}
                 />
             </TableCell>
@@ -149,14 +149,14 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
             <TableCell>
                   <TextField className = "textfield"  
                     name="assists"
-                    value={player.assists}
+                    value={updatedPlayer.assists}
                     onChange={handleChange}
                   />
               </TableCell>
               <TableCell>
                   <TextField className = "textfield"  
                     name="accurate_passes"
-                    value={player.accurate_passes}
+                    value={updatedPlayer.accurate_passes}
                     onChange={handleChange}
                   />
               </TableCell>
@@ -168,14 +168,14 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
             <TableCell>
                 <TextField className = "textfield"  
                   name="saves"
-                  value={player.saves}
+                  value={updatedPlayer.saves}
                   onChange={handleChange}
                 />
             </TableCell>
             <TableCell>
                 <TextField className = "textfield"  
                   name="goals_conceded"
-                  value={player.goals_conceded}
+                  value={updatedPlayer.goals_conceded}
                   onChange={handleChange}
                 />
             </TableCell>
