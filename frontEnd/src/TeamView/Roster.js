@@ -12,7 +12,7 @@ function Roster() {
             }).then((response)=>{
                 return response.text()
             }).then((data)=>{
-                if(data.startsWith('Error')){
+                if(data.startsWith('Bad request') || data.startsWith('Error')){
                     alert(data)
                 } else {
                     setTimeout(loadRows, 1000)
@@ -340,7 +340,7 @@ function AddButton(props) {
         }).then((response)=>{
             return response.text()
         }).then((data)=>{
-            if(data.startsWith('Error')){
+            if(data.startsWith('Bad request') || data.startsWith('Error')){
                 alert(data)
             } else{
                 console.log(data)
