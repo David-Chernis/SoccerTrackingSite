@@ -4,7 +4,6 @@ const mysql = require("mysql2");
 /**
  * Retrieves statistics for a given player from the database.
  * @param {number} playerId - The ID of the player whose statistics are to be retrieved.
- * @returns {void}
  */
 function getPlayerStats(playerId) {
   const connection = mysql.createConnection({
@@ -26,13 +25,15 @@ function getPlayerStats(playerId) {
 
       const positionName = results ? results[0].position_name : '';
 
+      const escapedPositionName = mysql.escapeId(`${positionName}s`);
+
       const statsQuery = `
         SELECT
             Players.*,
-            ${positionName}s.*
+            ${escapedPositionName}.*
         FROM
             Players
-            JOIN ${positionName}s ON Players.player_id = ${positionName}s.player_id
+            JOIN ${escapedPositionName} ON Players.player_id = ${escapedPositionName}.player_id
         WHERE
             Players.player_id = ?
             AND Players.position_name = ?`;

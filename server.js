@@ -83,7 +83,7 @@ app.get('/miniGame', async (req, res) => {
       console.log(res);
     } catch (error) {
       console.error(error);
-      res.status(500).send(`Error retrieving player with id ${playerId}.`);
+      res.status(500).send(`Error adding player with id ${playerId}`);
     }
   
     res.status(200).send('Player stats updated successfully');
@@ -191,6 +191,25 @@ app.get('/miniGame', async (req, res) => {
         player.position,
         flag_image
       )
+      
+      if (player.position == "Attacker"){
+        teamPage.insertAttacker(
+          player.total_goals, player.shots_on_target
+        )
+      } if (player.position == "Defender"){
+        teamPage.insertDefender(
+          player.total_tackles, player.interceptions, player.clearances
+        )
+      } if (player.position == "Midfielder"){
+        teamPage.insertMidfielder(
+          player.assists, player.accurate_passes
+        )
+      } if(player.position == "Goalkeeper"){
+        teamPage.insertGoalkeeper(
+          player.saves, player.goals_conceded
+        )
+      } 
+
       res.send(`Added new player!`)
     } catch (error) {
       console.error(error);

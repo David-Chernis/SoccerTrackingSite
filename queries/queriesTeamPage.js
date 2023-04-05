@@ -76,10 +76,118 @@ function insertPlayer(
   connection.end();
 }
 
+function insertAttacker(totalGoals, shotsOnTarget) {
+  const connection = mysql.createConnection({
+    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "Football304!",
+    port: "3306",
+    database: "cpsc304",
+  });
+
+  const query = `
+    INSERT INTO 
+    Attackers (
+      player_id, 
+      total_goals, 
+      shots_on_target
+    ) 
+    VALUES (?, ?, ?)`;
+
+  const values = [playerId, totalGoals, shotsOnTarget];
+
+  connection.query(query, values, function (error, results, fields) {
+    if (error) throw error;
+    console.log("New attacker inserted successfully");
+  });
+  connection.end();
+}
+
+function insertDefender(totalTackles, interceptions, clearances) {
+  const connection = mysql.createConnection({
+    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "Football304!",
+    port: "3306",
+    database: "cpsc304",
+  });
+
+  const query = `
+    INSERT INTO 
+    Defenders (
+      player_id, 
+      total_tackles, 
+      interceptions, 
+      clearances
+    ) 
+    VALUES (?, ?, ?, ?)`;
+
+  const values = [playerId, totalTackles, interceptions, clearances];
+
+  connection.query(query, values, function (error, results, fields) {
+    if (error) throw error;
+    console.log("New defender inserted successfully");
+  });
+  connection.end();
+}
+
+function insertMidfielder(assists, accuratePasses) {
+  const connection = mysql.createConnection({
+    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "Football304!",
+    port: "3306",
+    database: "cpsc304",
+  });
+
+  const query = `
+    INSERT INTO 
+    Midfielders (
+      player_id, 
+      assists, 
+      accurate_passes
+    ) 
+    VALUES (?, ?, ?)`;
+
+  const values = [playerId, assists, accuratePasses];
+
+  connection.query(query, values, function (error, results, fields) {
+    if (error) throw error;
+    console.log("New midfielder inserted successfully");
+  });
+  connection.end();
+}
+
+function insertGoalkeeper(saves, goalsConceded) {
+  const connection = mysql.createConnection({
+    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+    user: "admin",
+    password: "Football304!",
+    port: "3306",
+    database: "cpsc304",
+  });
+
+  const query = `
+    INSERT INTO 
+    Goalkeepers (
+      player_id, 
+      saves, 
+      goals_conceded
+    ) 
+    VALUES (?, ?, ?)`;
+
+  const values = [playerId, saves, goalsConceded];
+
+  connection.query(query, values, function (error, results, fields) {
+    if (error) throw error;
+    console.log("New goalkeeper inserted successfully");
+  });
+  connection.end();
+}
+
 /**
  * Fetches all the players in a team from the database
  * @param {number} teamID - The ID of the team whose players are to be fetched
- * @returns {Promise<Array>} - A promise that resolves to an array of player objects
  */
 async function playersByTeam(teamID) {
   const connection = mysql.createConnection({
@@ -98,8 +206,8 @@ async function playersByTeam(teamID) {
         const sql = `
           SELECT *
           FROM Players
-          WHERE team_id = ${teamID}`;
-        connection.query(sql, (error, results) => {
+          WHERE team_id = ?`;
+        connection.query(sql, [teamID], (error, results) => {
           if (error) {
             reject(error);
           } else {
@@ -113,10 +221,10 @@ async function playersByTeam(teamID) {
   });
 }
 
+
 /**
  * Fetches information about a team from the database
  * @param {number} teamID - The ID of the team whose information is to be fetched
- * @returns {Promise<Array>} - A promise that resolves to an array of team objects
  */
 async function teamInfo(teamID) {
   const connection = mysql.createConnection({
@@ -135,8 +243,8 @@ async function teamInfo(teamID) {
         const sql = `
           SELECT *
           FROM Teams
-          WHERE team_id = ${teamID}`;
-        connection.query(sql, (error, results) => {
+          WHERE team_id = ?`;
+        connection.query(sql, [teamID], (error, results) => {
           if (error) {
             reject(error);
           } else {
@@ -150,10 +258,10 @@ async function teamInfo(teamID) {
   });
 }
 
+
 /**
  * Fetches all the matches played by a team from the database
  * @param {number} teamID - The ID of the team whose matches are to be fetched
- * @returns {Promise<Array>} - A promise that resolves to an array of match objects
  */
 async function matchesByTeam(teamID) {
   const connection = mysql.createConnection({
@@ -181,12 +289,12 @@ async function matchesByTeam(teamID) {
             JOIN Teams AS HomeTeam ON Matches.home_team_id = HomeTeam.team_id
             JOIN Teams AS AwayTeam ON Matches.away_team_id = AwayTeam.team_id
         WHERE
-            home_team_id = ${teamID}
-            OR away_team_id = ${teamID}
+            home_team_id = ?
+            OR away_team_id = ?
         ORDER BY
             match_week ASC`;
 
-        connection.query(sql, (error, results) => {
+        connection.query(sql, [teamID, teamID], (error, results) => {
           if (error) {
             reject(error);
           } else {
@@ -199,6 +307,7 @@ async function matchesByTeam(teamID) {
     });
   });
 }
+
 
 /**
  * Deletes a player with the given player ID and team ID from the Players table.
@@ -226,9 +335,9 @@ function deletePlayer(playerId, teamId) {
   connection.end();
 }
 
-// insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
+insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
 // deletePlayer(1001, 1);
-// teamInfo(13).then((results) => console.log(results));
+// teamfo(13).then((results) => console.log(results));
 // matchesByTeam(13).then((results) => console.log(results));
 // playersByTeam(13).then((results) => console.log(results));
 
