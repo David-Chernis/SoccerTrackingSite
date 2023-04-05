@@ -46,7 +46,7 @@ function getPlayerStats(playerId) {
         console.log(`Player with ID ${playerId}`);
 
         connection.end();
-        
+
         resolve(results ? results[0] : results);
       });
     });
@@ -56,11 +56,6 @@ function getPlayerStats(playerId) {
 
 /**
  * Updates the attribute value of a player in the database.
- * @param {number} teamId - The ID of the team to which the player belongs.
- * @param {number} playerId - The ID of the player whose attribute value is to be updated.
- * @param {string|number} attrVal - The new value of the attribute.
- * @param {string} attrName - The name of the attribute to be updated.
- * @returns {void}
  */
 function updatePlayer(teamId, playerId, nationality, display_name, image_path, player_height, player_weight, date_of_birth, yellow_cards, avg_rating, position_name, nationality_image_path) {
   const connection = mysql.createConnection({
@@ -99,7 +94,6 @@ function updatePlayer(teamId, playerId, nationality, display_name, image_path, p
 
 // updatePlayer(1, 1001, 9.5, 'avg_rating');
 // getPlayerStats(22);
-// close the connection to the database
 
 module.exports = {
   getPlayerStats,

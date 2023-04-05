@@ -10,14 +10,9 @@ var connection = mysql.createConnection({
   database: "cpsc304",
 });
 
-//There may be connectivity issues caused by authentication (need to add IP to aws security protocol)
-
-const tids = [1];
-
-// , 3, 6, 8, 9, 10, 13, 14, 15, 18, 19, 20, 25, 26, 30, 33, 42, 51, 52, 65
+const tids = [1, 3, 6, 8, 9, 10, 13, 14, 15, 18, 19, 20, 25, 26, 30, 33, 42, 51, 52, 65];
 
 connection.connect(async (err) => {
-  //Accessing Teams and Stats Data need to populate and also add coaches
   for (let i = 0; i < tids.length; i++) {
     let team_id;
     let player_id;
@@ -55,7 +50,6 @@ connection.connect(async (err) => {
       }
     })
       .then(async response => {
-        //Example of access
         Tres_data = response["data"]["data"]
         console.log(Tres_data.length)
         for (let j = 0; j < Tres_data.length; j++) {
@@ -68,7 +62,6 @@ connection.connect(async (err) => {
             }
           })
             .then(async Presponse => {
-              //Example of access\
               total_goals = 0;
               shots_on_target = 0;
               total_tackles = 0;
@@ -139,7 +132,7 @@ connection.connect(async (err) => {
                   }
                 }
               }
-              console.log("pid: " + player_id,"tid: " + team_id)
+              console.log("pid: " + player_id, "tid: " + team_id)
               add_player(
                 team_id,
                 player_id,
@@ -269,7 +262,7 @@ async function add_attacker(
       "INSERT INTO Attackers (team_id, player_id, total_goals, shots_on_target) VALUES ?";
     const values = [
       [
-        team_id, 
+        team_id,
         player_id,
         total_goals,
         shots_on_target,
@@ -295,7 +288,7 @@ async function add_midfielder(
       "INSERT INTO Midfielders (team_id, player_id, assists, accurate_passes) VALUES ?";
     const values = [
       [
-        team_id, 
+        team_id,
         player_id,
         assists,
         accurate_passes,
@@ -321,7 +314,7 @@ async function add_goalie(
       "INSERT INTO Goalkeepers (team_id, player_id, saves, goals_conceded) VALUES ?";
     const values = [
       [
-        team_id, 
+        team_id,
         player_id,
         saves,
         goals_conceded,
@@ -348,7 +341,7 @@ async function add_defender(
       "INSERT INTO Defenders (team_id, player_id, total_tackles, interceptions, clearances) VALUES ?";
     const values = [
       [
-        team_id, 
+        team_id,
         player_id,
         total_tackles,
         interceptions,
