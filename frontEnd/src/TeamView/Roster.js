@@ -10,10 +10,15 @@ function Roster() {
             fetch("http://localhost:8000" + window.location.pathname + '/player/' + playerID, {
                 method: 'DELETE'
             }).then((response)=>{
-                return response.text()
+                if(response.status === 500)
+                    throw response.text()
+                else
+                    return response.text()
             }).then((data)=>{
                 console.log(data)
                 setTimeout(loadRows, 1000)
+            }).catch((error) => {
+                alert(error)
             })
         }
     }
@@ -112,15 +117,205 @@ function AddButton(props) {
     const [displayTable, setDisplay] = useState('none');
 
     const [newPlayer, setNewPlayer] = useState({
+        id: Math.trunc(Math.random()*10000000) + 6000,
         display_name: '',
-        position: '',
+        position: 'Attacker',
         date_of_birth: '',
         nationality: '',
         player_height: '',
         player_weight: '',
         yellow_cards: '',
-        id: Math.trunc(Math.random()*10000000) + 6000
+
+        total_goals: '',
+        shots_on_target: '',
+
+        total_tackles: '',
+        interceptions: '',
+        clearances: '',
+
+        assists: '',
+        accurate_passes: '',
+        
+        saves: '',
+        goals_conceded: ''
     })
+
+    const [extraTable, setExtraTable] = useState(getTableJSX('Attacker'))
+
+    function getTableJSX(position) {
+        switch(position) {
+            case 'Attacker':
+                return (
+                    <>
+                        <TableHead>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                }
+                            }}>
+                                <TableCell>Goals</TableCell>
+                                <TableCell>Shots on Target</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                },
+
+                                '& input': {
+                                    maxWidth:'85px'
+                                }
+                            }}>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'total_goals')}/>
+                                </TableCell>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'shots_on_target')}/>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </>
+                );
+            
+            case 'Midfielder':
+                return (
+                    <>
+                        <TableHead>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                }
+                            }}>
+                                <TableCell>Tackles</TableCell>
+                                <TableCell>Interceptions</TableCell>
+                                <TableCell>Clearances</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                },
+
+                                '& input': {
+                                    maxWidth:'85px'
+                                }
+                            }}>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'total_tackles')}/>
+                                </TableCell>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'interceptions')}/>
+                                </TableCell>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'clearances')}/>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </>
+                );
+            
+            case 'Defender':
+                return (
+                    <>
+                        <TableHead>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                }
+                            }}>
+                                <TableCell>Assists</TableCell>
+                                <TableCell>Accurate Passes</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                },
+
+                                '& input': {
+                                    maxWidth:'85px'
+                                }
+                            }}>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'assists')}/>
+                                </TableCell>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'accurate_passes')}/>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </>
+                );
+            
+            case 'Goalkeeper':
+                return (
+                    <>
+                        <TableHead>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                }
+                            }}>
+                                <TableCell>Saves</TableCell>
+                                <TableCell>Goals Conceded</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            <TableRow sx={{
+                                bgcolor:'primary.main',
+
+                                '& th, & td': {
+                                    bgcolor: 'primary.main',
+                                    color: 'primary.contrastText'
+                                },
+
+                                '& input': {
+                                    maxWidth:'85px'
+                                }
+                            }}>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'saves')}/>
+                                </TableCell>
+                                <TableCell>
+                                    <input onChange={(event)=>handleChange(event, 'goals_conceded')}/>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </>
+                );
+
+            default:
+                return (
+                    <p color='red'>Please choose a correct value.</p>
+                );
+
+        }
+    }
+
 
     function handleClick() {
         if(displayTable === 'none') {
@@ -132,6 +327,8 @@ function AddButton(props) {
 
     function handleChange(event, attribute) {
         setNewPlayer({...newPlayer, [attribute]: event.target.value})
+        if(attribute === 'position')
+            setExtraTable(getTableJSX(event.target.value))
     }
 
     function addPlayer() {
@@ -142,11 +339,16 @@ function AddButton(props) {
                 "Content-type": "application/json"
             }
         }).then((response)=>{
-            return response.text()
+            if(response.status === 500)
+                throw response.text()
+            else
+                return response.text()
         }).then((data)=>{
             console.log(data)
             setNewPlayer({...newPlayer, ['id']: Math.trunc(Math.random()*10000000) + 6000})
             setTimeout(props.loadRows, 1000)
+        }).catch((error) => {
+            alert(error)
         })
     }
 
@@ -197,7 +399,12 @@ function AddButton(props) {
                         <input onChange={(event)=>handleChange(event, 'display_name')}/>
                     </TableCell>
                     <TableCell>
-                        <input onChange={(event)=>handleChange(event, 'position')}/>
+                        <select onChange={(event)=>handleChange(event, 'position')}>
+                            <option value="Attacker">Attacker</option>
+                            <option value="Midfielder">Midfielder</option>
+                            <option value="Defender">Defender</option>
+                            <option value="Goalkeeper">Goalkeeper</option>
+                        </select>
                     </TableCell>
                     <TableCell>
                         <input onChange={(event)=>handleChange(event, 'nationality')}/>
@@ -221,6 +428,11 @@ function AddButton(props) {
                     </TableCell>
                 </TableRow>
             </TableBody>
+        </Table>
+        <Table sx={{
+            display: displayTable
+        }}>
+            {extraTable}
         </Table>
         </>
     );
