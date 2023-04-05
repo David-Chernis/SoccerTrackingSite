@@ -137,7 +137,7 @@ async function searchbar_players_teams(searchTerm) {
         FROM
             Players
         WHERE
-            display_name LIKE '%${searchTerm}%'
+            display_name LIKE ?
         UNION
         SELECT
             team_id AS id,
@@ -147,10 +147,11 @@ async function searchbar_players_teams(searchTerm) {
         FROM
             Teams
         WHERE
-            team_name LIKE '%${searchTerm}%';
+            team_name LIKE ?;
           `;
+        const searchSQL = `%${searchTerm}%`;
 
-        connection.query(sql, (error, results) => {
+        connection.query(sql,[searchSQL,searchSQL] ,(error, results) => {
           if (error) {
             reject(error);
           } else {

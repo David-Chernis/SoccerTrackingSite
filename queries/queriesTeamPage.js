@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
 /**
- *
+ * function to insert a new player tuple into the Players table
  * @param {*} teamId
  * @param {*} playerId
  * @param {*} nationality
@@ -15,8 +15,6 @@ const mysql = require("mysql2");
  * @param {*} positionName
  * @param {*} nationalityImagePath
  */
-
-// function to insert a new player tuple into the Players table
 function insertPlayer(
   teamId,
   playerId,
@@ -228,13 +226,12 @@ function deletePlayer(playerId, teamId) {
   connection.end();
 }
 
-// example usage
 // insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
 // deletePlayer(1001, 1);
-//  teamInfo(13).then((results) => console.log(results));
+// teamInfo(13).then((results) => console.log(results));
 // matchesByTeam(13).then((results) => console.log(results));
 // playersByTeam(13).then((results) => console.log(results));
-// close the connection to the database
+
 
 module.exports = {
   insertPlayer,

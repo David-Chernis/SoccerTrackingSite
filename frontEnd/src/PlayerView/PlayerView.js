@@ -25,7 +25,7 @@ function PlayerView(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Update player stats by calling API
+
     console.log(updatedPlayer)
     console.log(JSON.stringify(updatedPlayer));
     fetch(`http://localhost:8000${path}`, {
@@ -241,7 +241,7 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
             <TableCell>Weight</TableCell>
             <TableCell>Position</TableCell>
             <TableCell>Yellow Cards</TableCell>
-            {/* Conditional stat headers based on player's position */}
+            {/* Conditional stat headers based on player's position, basically different position tables have diff stats, which we need to conditionally render */}
             {renderAdditionalStatHeaders(player.position_name)}
           </TableRow>
         </TableHead>
@@ -256,7 +256,7 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
               },
             }}
           >
-            {/* Common stats */}
+            {/* stats common to all players*/}
             <TableCell>
               <TextField className = "textfield"  
                 name="avg_rating"
@@ -300,7 +300,7 @@ function PlayerStats({ player, updatedPlayer, handleChange, handleSubmit }) {
               />
             </TableCell>
 
-            {/* Conditional stats based on player's position */}
+            {/* actual conditional stats */}
             {renderAdditionalStats(player.position_name)}
           </TableRow>
         </TableBody>
