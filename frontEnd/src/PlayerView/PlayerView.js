@@ -1,3 +1,4 @@
+import Joi from 'joi';
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -23,9 +24,31 @@ function PlayerView(props) {
     setUpdatedPlayer({ ...updatedPlayer, [name]: value });
   };
 
+
+  const playerSchema = Joi.object({
+    team_id: Joi.number().required(),
+    nationality: Joi.string().required(),
+    display_name: Joi.string().required(),
+    image_path: Joi.string().required(),
+    player_height: Joi.number().required(),
+    player_weight: Joi.number().required(),
+    date_of_birth: Joi.date().required(),
+    yellow_cards: Joi.number().required(),
+    avg_rating: Joi.number().required(),
+    position_name: Joi.string().required(),
+    nationality_image_path: Joi.string().required()
+  });
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-
+  
+    const validation = playerSchema.validate(updatedPlayer);
+  
+    if (validation.error) {
+      alert(validation.error.details[0].message);
+      return;
+    }
+  
     console.log(updatedPlayer)
     console.log(JSON.stringify(updatedPlayer));
     fetch(`http://localhost:8000${path}`, {
