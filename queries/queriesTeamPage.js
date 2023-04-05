@@ -335,7 +335,7 @@ function deletePlayer(playerId, teamId) {
   connection.end();
 }
 
-insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
+// insertPlayer(1, 1001, 'Brazilian', 'Neymar Jr.', 'images/players/1001.jpg', 175.26, 68.04, '1992-02-05', 2, 8.5, 'Forward', 'images/flags/brazil.png');
 // deletePlayer(1001, 1);
 // teamfo(13).then((results) => console.log(results));
 // matchesByTeam(13).then((results) => console.log(results));

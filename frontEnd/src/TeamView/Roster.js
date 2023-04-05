@@ -10,13 +10,13 @@ function Roster() {
             fetch("http://localhost:8000" + window.location.pathname + '/player/' + playerID, {
                 method: 'DELETE'
             }).then((response)=>{
-                if(response.status === 500)
-                    throw response.text()
-                else
-                    return response.text()
+                return response.text()
             }).then((data)=>{
-                console.log(data)
-                setTimeout(loadRows, 1000)
+                if(data.startsWith('Error')){
+                    alert(data)
+                } else {
+                    setTimeout(loadRows, 1000)
+                }
             }).catch((error) => {
                 alert(error)
             })
@@ -316,7 +316,6 @@ function AddButton(props) {
         }
     }
 
-
     function handleClick() {
         if(displayTable === 'none') {
             setDisplay('table')
@@ -339,14 +338,15 @@ function AddButton(props) {
                 "Content-type": "application/json"
             }
         }).then((response)=>{
-            if(response.status === 500)
-                throw response.text()
-            else
-                return response.text()
+            return response.text()
         }).then((data)=>{
-            console.log(data)
-            setNewPlayer({...newPlayer, ['id']: Math.trunc(Math.random()*10000000) + 6000})
-            setTimeout(props.loadRows, 1000)
+            if(data.startsWith('Error')){
+                alert(data)
+            } else{
+                console.log(data)
+                setNewPlayer({...newPlayer, ['id']: Math.trunc(Math.random()*10000000) + 6000})
+                setTimeout(props.loadRows, 1000)
+            }
         }).catch((error) => {
             alert(error)
         })
