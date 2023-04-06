@@ -27,6 +27,7 @@ function PlayerView(props) {
 
   const playerSchema = Joi.object({
     team_id: Joi.number().required(),
+    player_id: Joi.number().required(),
     nationality: Joi.string().required(),
     display_name: Joi.string().required(),
     image_path: Joi.string().required(),
@@ -35,8 +36,46 @@ function PlayerView(props) {
     date_of_birth: Joi.date().required(),
     yellow_cards: Joi.number().required(),
     avg_rating: Joi.number().required(),
-    position_name: Joi.string().required(),
-    nationality_image_path: Joi.string().required()
+    position_name: Joi.string().valid('Attacker', 'Midfielder', 'Defender', 'Goalkeeper').required(),
+    nationality_image_path: Joi.string().required(),
+  
+    // Add conditionals for each position
+    total_goals: Joi.when('position_name', {
+      is: 'Attacker',
+      then: Joi.number().required()
+    }),
+    shots_on_target: Joi.when('position_name', {
+      is: 'Attacker',
+      then: Joi.number().required()
+    }),
+    total_tackles: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    interceptions: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    clearances: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    assists: Joi.when('position_name', {
+      is: 'Defender',
+      then: Joi.number().required()
+    }),
+    accurate_passes: Joi.when('position_name', {
+      is: 'Defender',
+      then: Joi.number().required()
+    }),
+    saves: Joi.when('position_name', {
+      is: 'Goalkeeper',
+      then: Joi.number().required()
+    }),
+    goals_conceded: Joi.when('position_name', {
+      is: 'Goalkeeper',
+      then: Joi.number().required()
+    })
   });
   
   const handleSubmit = (event) => {

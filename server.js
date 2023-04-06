@@ -64,7 +64,8 @@ app.get('/miniGame', async (req, res) => {
   const Joi = require('joi');
 
   const updatePlayerSchema = Joi.object({
-    team_id: Joi.string().required(),
+    team_id: Joi.number().required(),
+    player_id: Joi.number().required(),
     nationality: Joi.string().required(),
     display_name: Joi.string().required(),
     image_path: Joi.string().required(),
@@ -73,8 +74,46 @@ app.get('/miniGame', async (req, res) => {
     date_of_birth: Joi.date().required(),
     yellow_cards: Joi.number().required(),
     avg_rating: Joi.number().required(),
-    position_name: Joi.string().required(),
+    position_name: Joi.string().valid('Attacker', 'Midfielder', 'Defender', 'Goalkeeper').required(),
     nationality_image_path: Joi.string().required(),
+  
+    // Add conditionals for each position
+    total_goals: Joi.when('position_name', {
+      is: 'Attacker',
+      then: Joi.number().required()
+    }),
+    shots_on_target: Joi.when('position_name', {
+      is: 'Attacker',
+      then: Joi.number().required()
+    }),
+    total_tackles: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    interceptions: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    clearances: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    assists: Joi.when('position_name', {
+      is: 'Defender',
+      then: Joi.number().required()
+    }),
+    accurate_passes: Joi.when('position_name', {
+      is: 'Defender',
+      then: Joi.number().required()
+    }),
+    saves: Joi.when('position_name', {
+      is: 'Goalkeeper',
+      then: Joi.number().required()
+    }),
+    goals_conceded: Joi.when('position_name', {
+      is: 'Goalkeeper',
+      then: Joi.number().required()
+    })
   });
   
   app.post('/Player/:id', async (req, res) => {
@@ -198,24 +237,57 @@ app.get('/miniGame', async (req, res) => {
     }
   })
 
-  const addPlayerSchema = Joi.object({
-    id: Joi.number().required(),
+  const playerSchema = Joi.object({
+    team_id: Joi.number().required(),
+    player_id: Joi.number().required(),
     nationality: Joi.string().required(),
     display_name: Joi.string().required(),
+    image_path: Joi.string().required(),
     player_height: Joi.number().required(),
     player_weight: Joi.number().required(),
     date_of_birth: Joi.date().required(),
     yellow_cards: Joi.number().required(),
-    position: Joi.string().valid('Attacker', 'Defender', 'Midfielder', 'Goalkeeper').required(),
-    total_goals: Joi.when('position', { is: 'Attacker', then: Joi.number().required() }),
-    shots_on_target: Joi.when('position', { is: 'Attacker', then: Joi.number().required() }),
-    total_tackles: Joi.when('position', { is: 'Defender', then: Joi.number().required() }),
-    interceptions: Joi.when('position', { is: 'Defender', then: Joi.number().required() }),
-    clearances: Joi.when('position', { is: 'Defender', then: Joi.number().required() }),
-    assists: Joi.when('position', { is: 'Midfielder', then: Joi.number().required() }),
-    accurate_passes: Joi.when('position', { is: 'Midfielder', then: Joi.number().required() }),
-    saves: Joi.when('position', { is: 'Goalkeeper', then: Joi.number().required() }),
-    goals_conceded: Joi.when('position', { is: 'Goalkeeper', then: Joi.number().required() })
+    avg_rating: Joi.number().required(),
+    position_name: Joi.string().valid('Attacker', 'Midfielder', 'Defender', 'Goalkeeper').required(),
+    nationality_image_path: Joi.string().required(),
+  
+    // Add conditionals for each position
+    total_goals: Joi.when('position_name', {
+      is: 'Attacker',
+      then: Joi.number().required()
+    }),
+    shots_on_target: Joi.when('position_name', {
+      is: 'Attacker',
+      then: Joi.number().required()
+    }),
+    total_tackles: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    interceptions: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    clearances: Joi.when('position_name', {
+      is: 'Midfielder',
+      then: Joi.number().required()
+    }),
+    assists: Joi.when('position_name', {
+      is: 'Defender',
+      then: Joi.number().required()
+    }),
+    accurate_passes: Joi.when('position_name', {
+      is: 'Defender',
+      then: Joi.number().required()
+    }),
+    saves: Joi.when('position_name', {
+      is: 'Goalkeeper',
+      then: Joi.number().required()
+    }),
+    goals_conceded: Joi.when('position_name', {
+      is: 'Goalkeeper',
+      then: Joi.number().required()
+    })
   });
   
   app.post('/Team/:id/addPlayer', async (req, res) => {
