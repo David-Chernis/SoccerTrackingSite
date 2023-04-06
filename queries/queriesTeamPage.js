@@ -56,7 +56,14 @@ function insertPlayer(teamId, playerId, nationality, displayName, imagePath, pla
     });
   });
 }
-
+/**
+ * Inserts a new attacker into the database.
+ * 
+ * @param {number} playerId - The ID of the player to insert.
+ * @param {number} totalGoals - The total goals scored by the player.
+ * @param {number} shotsOnTarget - The total shots on target by the player.
+ * @param {number} teamId - The ID of the team the player belongs to.
+ */
 function insertAttacker(playerId, totalGoals, shotsOnTarget, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
@@ -91,6 +98,15 @@ function insertAttacker(playerId, totalGoals, shotsOnTarget, teamId) {
   });
 }
 
+/**
+ * Inserts a new defender into the database.
+ * 
+ * @param {number} playerId - The ID of the player to insert.
+ * @param {number} totalTackles - The total tackles made by the player.
+ * @param {number} interceptions - The total interceptions made by the player.
+ * @param {number} clearances - The total clearances made by the player.
+ * @param {number} teamId - The ID of the team the player belongs to.
+ */
 function insertDefender(playerId, totalTackles, interceptions, clearances, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
@@ -126,7 +142,14 @@ function insertDefender(playerId, totalTackles, interceptions, clearances, teamI
   });
 }
 
-
+/**
+ * Inserts a new midfielder into the database.
+ * 
+ * @param {number} playerId - The ID of the player to insert.
+ * @param {number} assists - The total assists made by the player.
+ * @param {number} accuratePasses - The total accurate passes made by the player.
+ * @param {number} teamId - The ID of the team the player belongs to.
+ */
 function insertMidfielder(playerId, assists, accuratePasses, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
@@ -161,6 +184,13 @@ function insertMidfielder(playerId, assists, accuratePasses, teamId) {
   });
 }
 
+/**
+ * 
+ * @param {number} playerId ID of the player to insert
+ * @param {number} saves number of saves the goalkeeper has made.
+ * @param {number} goalsConceded number of goals the goalkeeper has conceded.
+ * @param {number} teamId ID of the team the goalkeeper belongs to.
+ */
 function insertGoalkeeper(playerId, saves, goalsConceded, teamId) {
   const connection = mysql.createConnection({
     host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",

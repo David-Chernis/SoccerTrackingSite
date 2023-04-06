@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 // create a connection to the database
 /**
  * Retrieves statistics for a given player from the database.
- * @param {number} playerId - The ID of the player whose statistics are to be retrieved.
+ * @param {number} playerId - ID of the player whose statistics are to be retrieved.
  */
 function getPlayerStats(playerId) {
   const connection = mysql.createConnection({
@@ -55,8 +55,24 @@ function getPlayerStats(playerId) {
 }
 
 
+
 /**
- * Updates the attribute value of a player in the database.
+ * 
+ * Updates a player's information in the database.
+ *
+ * @param {number} teamId - ID of the team the player belongs to.
+ * @param {number} playerId - ID of the player to update.
+ * @param {string} nationality - player's nationality.
+ * @param {string} display_name - player's display name.
+ * @param {string} image_path - URL of the player's image.
+ * @param {number} player_height - player's height in cm.
+ * @param {number} player_weight - player's weight in kg.
+ * @param {string} date_of_birth - player's date of birth in YYYY-MM-DD format.
+ * @param {number} yellow_cards - number of yellow cards the player has received.
+ * @param {number} avg_rating - player's average rating.
+ * @param {string} position_name - player's position.
+ * @param {string} nationality_image_path - URL of the player's nationality flag image.
+ *
  */
 function updatePlayer(teamId, playerId, nationality, display_name, image_path, player_height, player_weight, date_of_birth, yellow_cards, avg_rating, position_name, nationality_image_path) {
   const connection = mysql.createConnection({
