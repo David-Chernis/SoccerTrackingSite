@@ -140,8 +140,6 @@ function AddButton(props) {
         goals_conceded: ''
     })
 
-    const [extraTable, setExtraTable] = useState(getTableJSX('Attacker'))
-
     function getTableJSX(position) {
         switch(position) {
             case 'Attacker':
@@ -326,8 +324,6 @@ function AddButton(props) {
 
     function handleChange(event, attribute) {
         setNewPlayer({...newPlayer, [attribute]: event.target.value})
-        if(attribute === 'position')
-            setExtraTable(getTableJSX(event.target.value))
     }
 
     function addPlayer() {
@@ -432,7 +428,7 @@ function AddButton(props) {
         <Table sx={{
             display: displayTable
         }}>
-            {extraTable}
+            {getTableJSX(newPlayer.position)}
         </Table>
         </>
     );
