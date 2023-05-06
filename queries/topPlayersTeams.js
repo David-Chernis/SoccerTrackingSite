@@ -5,13 +5,13 @@ const mysql = require("mysql2");
  * @returns An array of objects containing the player's in the form of [{display_name,avg_rating,player_image_path, nationality_image_path}]
  */
 async function top_rated_players() {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -54,13 +54,13 @@ async function top_rated_players() {
  * @returns An array of objects containing the teams in the form of [{team_id, team_name, average_rating, team_image_path}]
  */
 async function top_rated_teams() {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -103,13 +103,13 @@ async function top_rated_teams() {
  * @returns An array of objects containing the teams in the form of [{team_id, team_name, average_goals_scored, team_image_path}]
  */
 async function top_teams_average_scoring() {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -167,13 +167,13 @@ async function top_teams_average_scoring() {
  * @returns An array of objects containing the teams in the form of [{team_id, team_name, average_goals_conceeded, team_image_path}]
  */
 async function top_teams_average_conceeded() {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {

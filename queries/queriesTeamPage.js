@@ -16,13 +16,13 @@ const mysql = require("mysql2");
  * @param {*} nationalityImagePath
  */
 function insertPlayer(teamId, playerId, nationality, displayName, imagePath, playerHeight, playerWeight, dateOfBirth, yellowCards, avgRating, positionName, nationalityImagePath) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   const query = `
     INSERT INTO 
@@ -65,13 +65,13 @@ function insertPlayer(teamId, playerId, nationality, displayName, imagePath, pla
  * @param {number} teamId - The ID of the team the player belongs to.
  */
 function insertAttacker(playerId, totalGoals, shotsOnTarget, teamId) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   const query = `
     INSERT INTO 
@@ -108,13 +108,13 @@ function insertAttacker(playerId, totalGoals, shotsOnTarget, teamId) {
  * @param {number} teamId - The ID of the team the player belongs to.
  */
 function insertDefender(playerId, totalTackles, interceptions, clearances, teamId) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   const query = `
     INSERT INTO 
@@ -151,13 +151,13 @@ function insertDefender(playerId, totalTackles, interceptions, clearances, teamI
  * @param {number} teamId - The ID of the team the player belongs to.
  */
 function insertMidfielder(playerId, assists, accuratePasses, teamId) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   const query = `
     INSERT INTO 
@@ -192,13 +192,13 @@ function insertMidfielder(playerId, assists, accuratePasses, teamId) {
  * @param {number} teamId ID of the team the goalkeeper belongs to.
  */
 function insertGoalkeeper(playerId, saves, goalsConceded, teamId) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   const query = `
     INSERT INTO 
@@ -230,13 +230,13 @@ function insertGoalkeeper(playerId, saves, goalsConceded, teamId) {
  * @param {number} teamID - The ID of the team whose players are to be fetched
  */
 async function playersByTeam(teamID) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -267,13 +267,13 @@ async function playersByTeam(teamID) {
  * @param {number} teamID - The ID of the team whose information is to be fetched
  */
 async function teamInfo(teamID) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -304,13 +304,13 @@ async function teamInfo(teamID) {
  * @param {number} teamID - The ID of the team whose matches are to be fetched
  */
 async function matchesByTeam(teamID) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -356,13 +356,13 @@ async function matchesByTeam(teamID) {
  * @param {number} teamId - The ID of the team that the player belongs to.
  */
 function deletePlayer(playerId, teamId) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   const query = "DELETE FROM Players WHERE player_id = ? AND team_id = ?";
 

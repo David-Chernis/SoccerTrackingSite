@@ -3,11 +3,11 @@ const mysql = require("mysql2");
 
 
 var connection = mysql.createConnection({
-  host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
   user: "admin",
-  password: "Football304!",
+  password: "d19922000",
   port: "3306",
-  database: "cpsc304",
+  database: "db304",
 });
 
 const tids = [1, 3, 6, 8, 9, 10, 13, 14, 15, 18, 19, 20, 25, 26, 30, 33, 42, 51, 52, 65];
@@ -45,7 +45,7 @@ connection.connect(async (err) => {
     let accurate_passes;
     await axios.get(`https://api.sportmonks.com/v3/football/squads/seasons/10/teams/${tids[i]}?`, {
       params: {
-        api_token: 'IFRQw1iBMF72jh5ZjMR5OM73uCrKgx2OYkC0QMgNy2KwwFqffigo8km6ui1r',
+        api_token: 'aFdq5f6JjNXcsH2ldcGpRvxSw6rqoRAZBeh48Ie4QE2HVO0DKuDwYL5nEoN7',
         includes: 'player.statistics'
       }
     })
@@ -56,7 +56,7 @@ connection.connect(async (err) => {
           // console.log(Tres_data[j]["player_id"])
           await axios.get(`https://api.sportmonks.com/v3/football/players/${Tres_data[j]["player_id"]}?`, {
             params: {
-              api_token: 'IFRQw1iBMF72jh5ZjMR5OM73uCrKgx2OYkC0QMgNy2KwwFqffigo8km6ui1r',
+              api_token: 'aFdq5f6JjNXcsH2ldcGpRvxSw6rqoRAZBeh48Ie4QE2HVO0DKuDwYL5nEoN7',
               includes: 'statistics.details.type;nationality;position',
               filters: 'playerStatisticSeasons:10'
             }

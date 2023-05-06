@@ -7,10 +7,10 @@ const mysql = require("mysql2");
  */
 function getPlayerStats(playerId) {
   const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+    host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
     user: "admin",
-    password: "Football304!",
-    database: "cpsc304",
+    password: "d19922000",
+    database: "db304",
     port: "3306",
   });
 
@@ -76,10 +76,10 @@ function getPlayerStats(playerId) {
  */
 function updatePlayer(teamId, playerId, nationality, display_name, image_path, player_height, player_weight, date_of_birth, yellow_cards, avg_rating, position_name, nationality_image_path) {
   const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+    host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
     user: "admin",
-    password: "Football304!",
-    database: "cpsc304",
+    password: "d19922000",
+    database: "db304",
     port: "3306",
   });
 

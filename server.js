@@ -26,6 +26,7 @@ app.get("/standings", async (req, res) => {
   const week = req.query.week;
   try {
     const standings = await mainPage.get_weekly_results(week);
+    console.log(standings)
     res.send(standings);
   } catch (error) {
     console.error(error);
@@ -87,23 +88,23 @@ app.get('/miniGame', async (req, res) => {
       then: Joi.number().required()
     }),
     total_tackles: Joi.when('position_name', {
-      is: 'Midfielder',
+      is: 'Defender',
       then: Joi.number().required()
     }),
     interceptions: Joi.when('position_name', {
-      is: 'Midfielder',
+      is: 'Defender',
       then: Joi.number().required()
     }),
     clearances: Joi.when('position_name', {
-      is: 'Midfielder',
+      is: 'Defender',
       then: Joi.number().required()
     }),
     assists: Joi.when('position_name', {
-      is: 'Defender',
+      is: 'Midfielder',
       then: Joi.number().required()
     }),
     accurate_passes: Joi.when('position_name', {
-      is: 'Defender',
+      is: 'Midfielder',
       then: Joi.number().required()
     }),
     saves: Joi.when('position_name', {

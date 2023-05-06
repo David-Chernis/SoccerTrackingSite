@@ -3,11 +3,11 @@ const mysql = require("mysql2");
 
 
 var connection = mysql.createConnection({
-  host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
   user: "admin",
-  password: "Football304!",
+  password: "d19922000",
   port: "3306",
-  database: "cpsc304",
+  database: "db304",
 });
 
 connection.connect(async (err) => {
@@ -17,7 +17,7 @@ connection.connect(async (err) => {
 
   const hashMap = {}
   while (hasMore) {
-    await axios.get('https://api.sportmonks.com/v3/football/fixtures?api_token=IFRQw1iBMF72jh5ZjMR5OM73uCrKgx2OYkC0QMgNy2KwwFqffigo8km6ui1r&filters=fixtureSeasons:10;&includes=participants;scores;round', {
+    await axios.get('https://api.sportmonks.com/v3/football/fixtures?api_token=aFdq5f6JjNXcsH2ldcGpRvxSw6rqoRAZBeh48Ie4QE2HVO0DKuDwYL5nEoN7&filters=fixtureSeasons:10;&includes=participants;scores;round', {
       params: {
         page: `${pageNum}`
       }

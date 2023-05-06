@@ -6,13 +6,13 @@ const mysql = require("mysql2");
  * @returns An array of teams with attributes [team_name, team_code, image_path, total_points, total_wins, total_draws, total_losses]
  */
 async function get_weekly_results(week) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -94,12 +94,13 @@ async function get_weekly_results(week) {
           wr.total_draws DESC,
           wr.total_losses;
         `;
-
+        console.log("Fetching weekly results...");
         connection.query(sql, [week, week], (error, results) => {
           if (error) {
             reject(error);
           } else {
             console.log("Weekly results fetched successfully.");
+            console.log(results);
             resolve(results);
           }
           connection.end();
@@ -115,13 +116,13 @@ async function get_weekly_results(week) {
  * @returns An array of players and teams in the form of [{{id, name, type: 'team'/'player'}] front end needs to call appropriate endpoint
  */
 async function searchbar_players_teams(searchTerm) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {
@@ -175,13 +176,13 @@ async function searchbar_players_teams(searchTerm) {
  * @returns
  */
 async function match_games(homeTeam1, awayTeam1, homeTeam2, awayTeam2) {
-  const connection = mysql.createConnection({
-    host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
-    user: "admin",
-    password: "Football304!",
-    port: "3306",
-    database: "cpsc304",
-  });
+var connection = mysql.createConnection({
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "d19922000",
+  port: "3306",
+  database: "db304",
+});
 
   return new Promise((resolve, reject) => {
     connection.connect((err) => {

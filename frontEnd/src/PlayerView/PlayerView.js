@@ -49,23 +49,23 @@ function PlayerView(props) {
       then: Joi.number().required()
     }),
     total_tackles: Joi.when('position_name', {
-      is: 'Midfielder',
+      is: 'Defender',
       then: Joi.number().required()
     }),
     interceptions: Joi.when('position_name', {
-      is: 'Midfielder',
+      is: 'Defender',
       then: Joi.number().required()
     }),
     clearances: Joi.when('position_name', {
-      is: 'Midfielder',
+      is: 'Defender',
       then: Joi.number().required()
     }),
     assists: Joi.when('position_name', {
-      is: 'Defender',
+      is: 'Midfielder',
       then: Joi.number().required()
     }),
     accurate_passes: Joi.when('position_name', {
-      is: 'Defender',
+      is: 'Midfielder',
       then: Joi.number().required()
     }),
     saves: Joi.when('position_name', {

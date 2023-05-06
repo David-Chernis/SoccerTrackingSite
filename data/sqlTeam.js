@@ -2,17 +2,17 @@ const axios = require('axios');
 const mysql = require("mysql2");
 
 var connection = mysql.createConnection({
-  host: "db-304.cxmntzj5c09u.us-west-2.rds.amazonaws.com",
+  host: "database-2.cmldinzrktwi.us-east-1.rds.amazonaws.com",
   user: "admin",
-  password: "Football304!",
+  password: "d19922000",
   port: "3306",
-  database: "cpsc304",
+  database: "db304",
 });
 
 connection.connect(async (err) => {
   axios.get('https://api.sportmonks.com/v3/football/teams/seasons/10', {
     params: {
-      api_token: 'IFRQw1iBMF72jh5ZjMR5OM73uCrKgx2OYkC0QMgNy2KwwFqffigo8km6ui1r',
+      api_token: 'aFdq5f6JjNXcsH2ldcGpRvxSw6rqoRAZBeh48Ie4QE2HVO0DKuDwYL5nEoN7',
       includes: 'coaches;statistics.details.type',
       filters: 'teamStatisticSeasons:10'
     }
@@ -55,7 +55,7 @@ connection.connect(async (err) => {
         }
         // console.log(coach)
         // baseurl: https://api.sportmonks.com
-        await axios.get(`https://api.sportmonks.com/v3/football/coaches/${coach_id}?api_token=IFRQw1iBMF72jh5ZjMR5OM73uCrKgx2OYkC0QMgNy2KwwFqffigo8km6ui1r`, {
+        await axios.get(`https://api.sportmonks.com/v3/football/coaches/${coach_id}?api_token=aFdq5f6JjNXcsH2ldcGpRvxSw6rqoRAZBeh48Ie4QE2HVO0DKuDwYL5nEoN7`, {
         }).then(res => {
           //console.log(res.data)
           // console.log(res["data"]["data"])
